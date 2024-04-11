@@ -1,0 +1,40 @@
+@font-face {
+  font-family: 'geist';
+  src: url('/resources/font/Geist.Mono/GeistMono-Light.woff2');
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgb(19, 30, 33);
+  font-family: 'courier';
+  color: lightcyan;
+  /* padding-top: 1rem; */
+}
+
+header {
+  border-bottom: 1px solid lightblue;
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.content {
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.projects {
+  border-right: 3px solid lightblue;
+  max-width: 250px;
+}
+
+.project-button {
+  display: block;
+  margin-bottom: 1rem;
+  font-family: geist;
+}
