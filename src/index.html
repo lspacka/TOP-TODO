@@ -6,9 +6,11 @@
   <title>TODO</title>
 </head>
 <body>
-  <div class="app">
+  <main class="app">
     <header>
-      <img src="/resources/icons/wojak_npc.png" alt="I support this project" width="90" height="90">
+      <a href="https://www.youtube.com/watch?v=A07Vqpcbf3s" target="_blank">
+        <img src="/resources/icons/wojak_npc.png" alt="I support this project" width="90" height="90">
+      </a>
       WORKWORKWORKWORKWORKWORKWORK
     </header>
     <div class="content">
@@ -17,15 +19,36 @@
         <button class="project-button">Today</button>
         <button class="project-button">This Week</button>
         <button class="project-button">Important</button>
-        <h2>Projects</h2>
-        <button class="project-button">Add Project</button>
+        <h2>User Projects</h2>
+        <button class="add-project">Add Project</button>
       </div>
       <div class="tasks">
         <h1>Project Name</h1>
-        <p>task title</p>
-        <button class="add-task-btn">Add Task</button>
+        <p>placeholder for task title</p>
+        <button class="new-task-btn">Add Task</button>
       </div>
     </div>
-  </div>
+    <dialog class="task-modal">
+      <h2 class="modal-heading"></h2>
+      <form action="">
+        <label for="" class="label">Task</label>
+        <input type="text" class="task-title">
+        <label for="" class="label">Description</label>
+        <textarea class="task-desc"></textarea>
+      </form>
+      <div class="modal-buttons">
+        <button class="modal-button" id="add-task">Add</button>
+        <button class="modal-button" id="cancel-task">Cancel</button>
+      </div>
+    </dialog>
+    <dialog class="project-modal">
+      <label for="">Name</label>
+      <input type="text" class="project-name">
+      <div class="modal-buttons">
+        <button class="modal-button" id="add-project">Add</button>
+        <button class="modal-button" id="cancel-project">Cancel</button>
+      </div>
+    </dialog>
+  </main>
 </body>
 </html>

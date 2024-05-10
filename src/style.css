@@ -38,3 +38,58 @@ header {
   margin-bottom: 1rem;
   font-family: geist;
 }
+
+.task-modal,
+.project-modal {
+  background: rgb(21, 82, 87);
+  /* z-index: 1; */
+  padding: 1rem;
+  padding-left: 1.5rem;
+  margin: 0 auto;
+  transform: translateY(-200px);
+  width: 40%;
+  max-width: auto;
+  border-radius: 0.5rem;
+  border: none;
+  color: rgb(199, 234, 246);
+  position: fixed;
+}
+
+.task-modal * {
+  margin-bottom: 15px;
+  display: block;
+}
+
+.label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.task-title {
+  width: 50%;
+  height: 30px;
+}
+
+.task-desc {
+  width: 98%;
+  height: 60px;
+  margin-right: 25px;
+  resize: none;
+  /* display: block; */
+
+}
+
+.modal-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+
+.modal-button {
+  /* width: 50%; */
+  margin-top: 10px;
+  margin-bottom: 0;
+  /* display: inline; */
+  margin-right: 10px;
+  height: 30px;
+}
