@@ -33,7 +33,8 @@ header {
   max-width: 250px;
 }
 
-.project-button {
+.project-button,
+.user-project-button {
   display: block;
   margin-bottom: 1rem;
   font-family: geist;

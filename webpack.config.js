@@ -27,6 +27,7 @@ module.exports = {
       },
     ],
   },
+  devtool: 'inline-source-map',
   plugins: [
     new HTMLWebpackPlugin({
       template: './src/index.html',
