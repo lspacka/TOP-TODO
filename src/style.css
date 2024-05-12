@@ -33,6 +33,10 @@ header {
   max-width: 250px;
 }
 
+.new-task-btn {
+  margin-top: 70px;
+}
+
 .project-button,
 .user-project-button {
   display: block;
@@ -53,7 +57,7 @@ header {
   border-radius: 0.5rem;
   border: none;
   color: rgb(199, 234, 246);
-  position: fixed;
+  /* position: fixed; */
 }
 
 .task-modal * {
@@ -94,3 +98,13 @@ header {
   margin-right: 10px;
   height: 30px;
 }
+
+li {
+  list-style-type: none;
+  /* display: grid; */
+  /* grid-template-columns: 1fr 1fr; */
+}
+
+/* .detail-button {
+  display: inline-block;
+} */

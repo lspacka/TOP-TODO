@@ -15,19 +15,19 @@
     </header>
     <div class="content">
       <div class="projects">
-        <button class="project-button">Tasks</button>
-        <button class="project-button">Today</button>
-        <button class="project-button">This Week</button>
-        <button class="project-button">Important</button>
+        <button class="project-button default-project-button">Tasks</button>
+        <button class="project-button default-project-button">Today</button>
+        <button class="project-button default-project-button">This Week</button>
+        <button class="project-button default-project-button">Important</button>
         <div class="user-projects">
           <h2>User Projects</h2>
         </div>
         <button class="add-project">New Project</button>
       </div>
       <div class="tasks">
-        <div class="tasks-display">
-          <h1>Project Name</h1>
-          <p>placeholder for task title</p>
+        <div class="project-display">
+          <h1 class="project-heading"></h1>
+          <ul class="tasks-list"></ul>
         </div>
         <button class="new-task-btn">Add Task</button>
       </div>
@@ -52,6 +52,10 @@
         <button class="modal-button" id="add-project">Add</button>
         <button class="modal-button" id="cancel-project">Cancel</button>
       </div>
+    </dialog>
+    <dialog class="task-detail-modal">
+      <div class="task-detail"></div>
+      <button>Close</button>
     </dialog>
   </main>
 </body>
