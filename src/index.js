@@ -3,7 +3,7 @@
 //   - ModalHandler
 
 import './style.css'
-import { updateProject } from './DOMmod.js'
+import { ModalHandler, updateProject } from './DOMmod.js'
 
 const project_btns = document.querySelectorAll('.project-button')
 const user_pro_btns = document.querySelectorAll('.user-project-button')
@@ -15,7 +15,7 @@ const project_modal = document.querySelector('.project-modal')
 const project_name = document.querySelector('.project-name')
 // const modal_heading = document.querySelector('.modal-heading')
 const new_task = document.querySelector('.new-task-btn')
-const task_info = document.querySelector('.task-modal')
+const task_modal = document.querySelector('.task-modal')
 const task_title = document.querySelector('.task-title')
 const task_desc = document.querySelector('.task-desc')
 const add_task = document.getElementById('add-task')
@@ -64,7 +64,7 @@ let user_pros = []
 let current_pro = default_pro
 let all_pros = [default_pro, today, this_week, important]
 
-//  Clusterfuck procedure for adding event listeners to dynamically added buttons (user projects)
+//  clusterfuck procedure for adding event listeners to dynamically added buttons (user projects)
 //  the event listener basically updates the current_pro variable
 function handleButtonClick(e) {
   let btn_text = e.target.textContent
@@ -90,6 +90,7 @@ function addNewProject() {
   user_pros.push(project);
   all_pros.push(project);
   updateProject(user_section, user_pros);
+  project_modal.close()
 
   let newButton = document.querySelector('.user-project-button:last-child')
   if (newButton) {
@@ -112,10 +113,6 @@ project_btns.forEach(btn => {
   })
 })
 
-new_project.addEventListener('click', () => {
-  project_modal.show()
-})
-
 // add_project.addEventListener('click', () => {
 //   let name = project_name.value
 //   let project = new Project(name)
@@ -126,23 +123,38 @@ new_project.addEventListener('click', () => {
 //   // console.log(all_pros)
 // })
 
-cancel_project.addEventListener('click', () => {
-  project_modal.close()
-})
+ModalHandler(
+  new_project,
+  cancel_project,
+  new_task,
+  cancel_task,
+  project_modal,
+  task_modal
+)
 
-new_task.addEventListener('click', () => {
-  task_info.show()
-})
+// new_project.addEventListener('click', () => {
+//   project_modal.show()
+// })
+
+// cancel_project.addEventListener('click', () => {
+//   project_modal.close()
+// })
+
+// new_task.addEventListener('click', () => {
+//   task_info.show()
+// })
+
+// cancel_task.addEventListener('click', () => {
+//   task_info.close()
+//   console.log('this guy fucks')
+// })
 
 add_task.addEventListener('click', () => {
   let title = task_title.value
   let desc = task_desc.value
   let task = new Task(title, desc)
-  current_pro.tasks.push(task)
-  // console.log(current_pro)
-})
 
-cancel_task.addEventListener('click', () => {
-  task_info.close()
-  console.log('this guy fucks')
+  current_pro.tasks.push(task)
+  task_modal.close()
+  console.log(current_pro)
 })

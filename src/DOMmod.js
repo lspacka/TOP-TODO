@@ -11,6 +11,25 @@ export function showProject(div, pro) {
     //
 }
 
-export function ModalHandler() {
+export function ModalHandler(newPro, cancelPro, newTask, cancelTask, proModal, taskModal) {
+    newPro.addEventListener('click', () => {
+        proModal.show()
+    })
+
+    cancelPro.addEventListener('click', () => {
+        proModal.close()
+    })
+
+    newTask.addEventListener('click', () => {
+        taskModal.show()
+    })
+
+    cancelTask.addEventListener('click', () => {
+        taskModal.close()
+        console.log('this guy fucks')
+    })
+}
+
+export function TaskDetail(task) {
     //
 }
