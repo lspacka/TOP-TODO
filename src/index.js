@@ -27,6 +27,16 @@ const add_task = document.getElementById('add-task')
 const cancel_task = document.getElementById('cancel-task')
 const pro_display = document.querySelector('.project-display')
 const tasks_list = document.querySelector('.tasks-list')
+// const detail_btns = document.querySelector('.detail-button')
+// const delete_task_btns = document.querySelector('.delete-task-button')
+const task_detail = document.querySelector('.task-detail-modal')
+const close_detail = document.querySelector('.close-detail')
+
+// detail_btns.forEach(btn => {
+//   btn.addEventListener('click', () => {
+//     task_detail.show()
+//   })
+// })
 
 class Task {
   constructor(title, desc, date, pro) {
@@ -129,7 +139,9 @@ ModalHandler(
   new_task,
   cancel_task,
   project_modal,
-  task_modal
+  task_modal,
+  task_detail,
+  close_detail
 )
 
 add_task.addEventListener('click', () => {
@@ -140,5 +152,5 @@ add_task.addEventListener('click', () => {
   current_pro.tasks.push(task)
   task_modal.close()
   showProject(pro_heading, tasks_list, current_pro)
-  console.log(current_pro)
+  // console.log(current_pro)
 })
