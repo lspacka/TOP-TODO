@@ -36,8 +36,8 @@ export function showProject(heading, list, pro) {
 
             del_task.addEventListener('click', () => {
                 list.removeChild(li)
-                tasks.splice(li, li)
-                console.log(tasks)
+                tasks.splice(index, 1)
+                // console.log(tasks)
                 console.log(pro)
             })
 

@@ -152,5 +152,5 @@ add_task.addEventListener('click', () => {
   current_pro.tasks.push(task)
   task_modal.close()
   showProject(pro_heading, tasks_list, current_pro)
-  // console.log(current_pro)
+  console.log('current project before: ', current_pro)
 })
