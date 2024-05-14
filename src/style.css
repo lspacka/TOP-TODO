@@ -45,7 +45,8 @@ header {
 }
 
 .task-modal,
-.project-modal {
+.project-modal,
+.task-detail-modal {
   background: rgb(21, 82, 87);
   /* z-index: 1; */
   padding: 1rem;
@@ -58,6 +59,11 @@ header {
   border: none;
   color: rgb(199, 234, 246);
   /* position: fixed; */
+}
+
+.task-detail-modal {
+  font-family: geist;
+  color:rgb(233, 242, 245);
 }
 
 .task-modal * {

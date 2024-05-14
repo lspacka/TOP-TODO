@@ -2,8 +2,10 @@
 //  + showProject()
 //    + update heading
 //    + forEach task => <li>task.title<button class="task-detail"><li>
-//  - delete task
-//  - task detail modal. div.textContent = task.desc + close button
+//  + delete task
+//  + task detail modal. div.textContent = task.desc + close button
+//  - add task to important
+//  - add date to task
 
 import './style.css'
 import { ModalHandler, updateProject, showProject } from './DOMmod.js'
@@ -91,7 +93,7 @@ function handleButtonClick(e) {
       if (btn_text == pro.name) current_pro = pro;
   });
   console.log("Current project:", current_pro);
-  showProject(pro_heading, tasks_list, current_pro)
+  showProject(pro_heading, tasks_list, current_pro, important)
 }
 
 function addButtonClickListener(button) {
@@ -110,7 +112,7 @@ function addNewProject() {
   all_pros.push(project);
   updateProject(user_section, user_pros);
   project_modal.close()
-  showProject(pro_heading, tasks_list, current_pro)
+  showProject(pro_heading, tasks_list, current_pro, important)
 
   let newButton = document.querySelector('.user-project-button:last-child')
   if (newButton) {
@@ -129,7 +131,7 @@ def_pro_btns.forEach(btn => {
       if (btn_text == pro.name) current_pro = pro
     })
     console.log("Current project:", current_pro)
-    showProject(pro_heading, tasks_list, current_pro)
+    showProject(pro_heading, tasks_list, current_pro, important)
   })
 })
 
@@ -151,6 +153,6 @@ add_task.addEventListener('click', () => {
 
   current_pro.tasks.push(task)
   task_modal.close()
-  showProject(pro_heading, tasks_list, current_pro)
+  showProject(pro_heading, tasks_list, current_pro, important) 
   console.log('current project before: ', current_pro)
 })
