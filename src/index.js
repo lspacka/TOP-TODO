@@ -4,8 +4,9 @@
 //    + forEach task => <li>task.title<button class="task-detail"><li>
 //  + delete task
 //  + task detail modal. div.textContent = task.desc + close button
-//  + add task to important
+//  - add task to important (fix bug removing task)
 //  - add date to task
+//  - remove task from date projects if date input doesnt match either one of them
 
 import './style.css'
 import { ModalHandler, updateProject, showProject } from './DOMmod.js'
@@ -82,8 +83,9 @@ let important = {
 let user_pros = []
 let current_pro = default_pro
 let all_pros = [default_pro, today, this_week, important]
-let dates = [today, this_week]
-showProject(pro_heading, tasks_list, current_pro)
+let date_pros = [today, this_week]
+showProject(pro_heading, tasks_list, current_pro, date_pros)
+// console.log(date_pros)
 
 //  clusterfuck procedure for adding event listeners to dynamically added buttons (user projects)
 //  the event listener basically updates the current_pro variable
@@ -94,7 +96,7 @@ function handleButtonClick(e) {
       if (btn_text == pro.name) current_pro = pro;
   });
   console.log("Current project:", current_pro);
-  showProject(pro_heading, tasks_list, current_pro, important)
+  showProject(pro_heading, tasks_list, current_pro, important, date_pros)
 }
 
 function addButtonClickListener(button) {
@@ -113,7 +115,7 @@ function addNewProject() {
   all_pros.push(project);
   updateProject(user_section, user_pros);
   project_modal.close()
-  showProject(pro_heading, tasks_list, current_pro, important)
+  showProject(pro_heading, tasks_list, current_pro, important, date_pros)
 
   let newButton = document.querySelector('.user-project-button:last-child')
   if (newButton) {
@@ -132,7 +134,7 @@ def_pro_btns.forEach(btn => {
       if (btn_text == pro.name) current_pro = pro
     })
     console.log("Current project:", current_pro)
-    showProject(pro_heading, tasks_list, current_pro, important)
+    showProject(pro_heading, tasks_list, current_pro, important, date_pros)
   })
 })
 
@@ -154,6 +156,6 @@ add_task.addEventListener('click', () => {
 
   current_pro.tasks.push(task)
   task_modal.close()
-  showProject(pro_heading, tasks_list, current_pro, important) 
+  showProject(pro_heading, tasks_list, current_pro, important, date_pros) 
   console.log('current project before: ', current_pro)
 })
