@@ -4,7 +4,7 @@
 //    + forEach task => <li>task.title<button class="task-detail"><li>
 //  + delete task
 //  + task detail modal. div.textContent = task.desc + close button
-//  - add task to important
+//  + add task to important
 //  - add date to task
 
 import './style.css'
@@ -82,6 +82,7 @@ let important = {
 let user_pros = []
 let current_pro = default_pro
 let all_pros = [default_pro, today, this_week, important]
+let dates = [today, this_week]
 showProject(pro_heading, tasks_list, current_pro)
 
 //  clusterfuck procedure for adding event listeners to dynamically added buttons (user projects)

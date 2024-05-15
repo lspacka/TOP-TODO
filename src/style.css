@@ -105,12 +105,32 @@ header {
   height: 30px;
 }
 
-li {
-  list-style-type: none;
-  /* display: grid; */
-  /* grid-template-columns: 1fr 1fr; */
+ul {
+  width: 100%;
 }
 
-/* .detail-button {
-  display: inline-block;
-} */
+li {
+  list-style-type: none;
+  display: flex;
+  width: 100%;
+}
+
+.task-buttons {
+  display: flex;
+  /* justify-content: end; */
+  margin-left: 380px;
+}
+
+.no-date {
+  cursor:context-menu;
+}
+
+.date-input {
+  visibility: hidden;
+  position: absolute;
+  /* margin-right: 20px; */
+}
+
+.detail-button {
+  margin-left: 50px;
+}
