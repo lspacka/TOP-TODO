@@ -42,12 +42,13 @@ const close_detail = document.querySelector('.close-detail')
 // })
 
 class Task {
-  constructor(title, desc, date, pro) {
+  constructor(title, desc) {
     this.title = title
     this.desc = desc
-    this.date = date
-    this.pro = pro  // ?
     this.important = false
+    this.date
+    this.pro  // ?
+    this.index
   }
 }
 

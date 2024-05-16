@@ -69,11 +69,30 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
             })
 
             imp_btn.addEventListener('click', () => {
+                let imp_pro
                 task.important = task.important ? false : true
                 // task.important && importantPro.tasks.push(task)
-                if (task.important) importantPro.tasks.push(task)
-                else importantPro.tasks.splice(index, 1) // cant be index cos its not consistent across projects
-                console.log(importantPro)
+                if (task.important && !importantPro.tasks.includes(task)) {
+                    importantPro.tasks.push(task)
+                    // task_index = importantPro.tasks.indexOf(task)
+                    // task.index = task_index
+                    task.index = importantPro.tasks.indexOf(task)
+                }
+                
+                if (!task.important && importantPro.tasks.includes(task)) {
+                    // imp_pro = (currentPro==importantPro) ? currentPro : importantPro
+                    // imp_pro.tasks.splice(task.index, 1)
+                    // imp_pro.tasks.forEach((task, index) => {
+                    //     task.index = index
+                    // })
+                    importantPro.tasks.splice(task.index, 1)
+                    importantPro.tasks.forEach((task, index) => {
+                        task.index = index
+                    })
+                    // console.log(importantPro)
+                    console.log(task.title, task.important, 'index: ', task.index) 
+                }
+                
             })
 
             del_task.addEventListener('click', () => {
