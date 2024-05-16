@@ -4,9 +4,11 @@
 //    + forEach task => <li>task.title<button class="task-detail"><li>
 //  + delete task
 //  + task detail modal. div.textContent = task.desc + close button
-//  - add task to important (fix bug removing task)
-//  - add date to task
+//  + add task to important (fix bug removing task)
+//  + fix bug in delete task
+//  + add date to task
 //  - remove task from date projects if date input doesnt match either one of them
+//  - make new user project current one
 
 import './style.css'
 import { ModalHandler, updateProject, showProject } from './DOMmod.js'
@@ -34,6 +36,7 @@ const tasks_list = document.querySelector('.tasks-list')
 // const delete_task_btns = document.querySelector('.delete-task-button')
 const task_detail = document.querySelector('.task-detail-modal')
 const close_detail = document.querySelector('.close-detail')
+const TEST = document.querySelector('.test-button')
 
 // detail_btns.forEach(btn => {
 //   btn.addEventListener('click', () => {
@@ -87,6 +90,10 @@ let all_pros = [default_pro, today, this_week, important]
 let date_pros = [today, this_week]
 showProject(pro_heading, tasks_list, current_pro, date_pros)
 // console.log(date_pros)
+
+TEST.addEventListener('click', () => {
+  console.log('(TEST) current pro: ', current_pro)
+})
 
 //  clusterfuck procedure for adding event listeners to dynamically added buttons (user projects)
 //  the event listener basically updates the current_pro variable
@@ -155,6 +162,7 @@ add_task.addEventListener('click', () => {
   let desc = task_desc.value
   let task = new Task(title, desc)
 
+  if (current_pro == important) task.important = true
   current_pro.tasks.push(task)
   task_modal.close()
   showProject(pro_heading, tasks_list, current_pro, important, date_pros) 
