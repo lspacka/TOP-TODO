@@ -8,7 +8,6 @@ export function updateProject(div, pros) {
 
     button.textContent = project.name
     button.setAttribute("class", "project-button user-project-button")
-    // button.classList.add('user-project-button')
     div.appendChild(button)
 }
 
@@ -81,7 +80,7 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
                     importantPro.tasks.splice(task.index, 1)
                     importantPro == currentPro && list.removeChild(li)
 
-                    //  update indexes after deleting
+                    //  update indexes after deleting a task
                     importantPro.tasks.forEach((task, index) => {
                         task.index = index
                     })
@@ -152,10 +151,6 @@ function sortDate(task, datePros, currentPro, list, li) {
             task.index = index
         })
     }
-}
-
-export function cleanDate() {
-    //  
 }
 
 export function ModalHandler(
