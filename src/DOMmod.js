@@ -60,7 +60,7 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
                 task.date = date_input.value
                 no_date.textContent = task.date
                 date_input.style.visibility = 'hidden'
-                sortDate(task, datePros)
+                sortDate(task, datePros, currentPro, list, li)
                 console.log(currentPro)
             })
 
@@ -107,13 +107,7 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
     }
 }
 
-export function sortDate(task, datePros) {
-    //  set today
-    //  set this week
-    //  go thru project.tasks
-    //  if task.date doesnt match either today or week, pluck it out 
-    //  if (task.date == today || this week) project.push(task)
-
+function sortDate(task, datePros, currentPro, list, li) {
     const today_pro = datePros[0]
     const week_pro = datePros[1]
     const date_comps = task.date.split('-')
@@ -126,17 +120,38 @@ export function sortDate(task, datePros) {
     const week_start = new Date(today.getFullYear(), today.getMonth(), today.getDate()-today.getDay())
     const week_end = new Date(today.getFullYear(), today.getMonth(), today.getDate()+(6-today.getDay()))
 
-    // const today_year = today.getFullYear()
-    // const today_month = today.getMonth()
-    // const today_day = today.getDate()
 
-    if (date>=week_start && date<=week_end) week_pro.tasks.push(task)
-    // if (year==today_year && month==today_month && day==today_day) today_pro.tasks.push(task)
+    if (date>=week_start && date<=week_end && !week_pro.tasks.includes(task)) week_pro.tasks.push(task)
+
+    if (date<week_start || date>week_end && week_pro.tasks.includes(task)) {
+        week_pro.tasks.splice(task.index, 1)
+        week_pro == currentPro && list.removeChild(li) 
+
+        week_pro.tasks.forEach((task, index) => {
+            task.index = index
+        })
+    }
+
     if (
         date.getFullYear() == today.getFullYear() &&
         date.getMonth() == today.getMonth() &&
-        date.getDate() == today.getDate()
+        date.getDate() == today.getDate() &&
+        !today_pro.tasks.includes(task)
     ) today_pro.tasks.push(task)
+
+    if (
+        date.getFullYear() != today.getFullYear() ||
+        date.getMonth() != today.getMonth() ||
+        date.getDate() != today.getDate() &&
+        today_pro.tasks.includes(task)
+    ) {
+        today_pro.tasks.splice(task.index, 1)
+        today_pro == currentPro && list.removeChild(li)
+
+        today_pro.tasks.forEach((task, index) => {
+            task.index = index
+        })
+    }
 }
 
 export function cleanDate() {

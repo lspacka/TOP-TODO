@@ -7,7 +7,7 @@
 //  + add task to important (fix bug removing task)
 //  + fix bug in delete task
 //  + add date to task
-//  - remove task from date projects if date input doesnt match either one of them
+//  + remove task from date projects if date input doesnt match either one of them
 //  - make new user project current one
 
 import './style.css'
