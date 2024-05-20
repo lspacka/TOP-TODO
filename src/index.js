@@ -10,6 +10,18 @@
 //  + remove task from date projects if date input doesnt match either one of them
 //  + check delete task, important from date pros, thoroughly
 //  + make new user project current one
+//  + delete all tasks in a project
+//  + delete all projects
+//  - delete project
+//  - fix project display
+//  - local storage
+//    - gets "called" everytime:
+//       - a task gets added/deleted
+//       - a task changes "state" (date, important)
+//       - a project gets added/deleted
+//    - it stores array with all the projects
+//    - it retrieves the data and sets it as a default on the projects when loading the page (I think?) 
+//    - it places the lotion in the basket 💀
 
 import './style.css'
 import { ModalHandler, updateProject, showProject } from './DOMmod.js'
@@ -17,13 +29,14 @@ import { ModalHandler, updateProject, showProject } from './DOMmod.js'
 const pro_buttons = document.querySelectorAll('.project-button')
 const def_pro_btns = document.querySelectorAll('.default-project-button')
 const user_pro_btns = document.querySelectorAll('.user-project-button')
-const user_section = document.querySelector('.user-projects')
-const new_project = document.querySelector('.add-project')   //
-const add_project = document.getElementById('add-project')  //
+const user_section = document.querySelector('.user-projects') 
+const user_pro_list = document.querySelector('.user-projects-list')
+const new_project = document.querySelector('.add-project')   
+const add_project = document.getElementById('add-project')  
 const cancel_project = document.getElementById('cancel-project')
 const project_modal = document.querySelector('.project-modal')
 const project_name = document.querySelector('.project-name')
-const pro_heading = document.querySelector('.project-heading')
+const pro_heading = document.querySelector('.project-heading')  // 2DOM
 const new_task = document.querySelector('.new-task-btn')
 const task_modal = document.querySelector('.task-modal')
 const task_title = document.querySelector('.task-title')
@@ -34,6 +47,8 @@ const pro_display = document.querySelector('.project-display')
 const tasks_list = document.querySelector('.tasks-list')
 const task_detail = document.querySelector('.task-detail-modal')
 const close_detail = document.querySelector('.close-detail')
+const clear_projects = document.querySelector('.clear-projects')
+const clear_tasks = document.querySelector('.clear-tasks')
 const TEST = document.querySelector('.test-button')
 
 class Task {
@@ -51,6 +66,7 @@ class Project {
   constructor(name) {
     this.name = name
     this.tasks = []
+    this.index
   }
 }
 
@@ -64,10 +80,19 @@ let current_pro = default_pro
 let all_pros = [default_pro, today, this_week, important]
 const date_pros = [today, this_week]
 showProject(pro_heading, tasks_list, current_pro, date_pros)
+let pro_count = 0
 // console.log(date_pros)
 
 TEST.addEventListener('click', () => {
   console.log('(TEST) current pro: ', current_pro)
+  let title = task_title.value
+  let desc = task_desc.value
+  let task = new Task(title, desc)
+
+  if (current_pro == important) task.important = true
+  current_pro.tasks.push(task)
+  task_modal.close()
+  showProject(pro_heading, tasks_list, current_pro, important, date_pros)
 })
 
 //  clusterfuck procedure for adding event listeners to dynamically added buttons (user projects)
@@ -76,8 +101,8 @@ function handleButtonClick(e) {
   let btn_text = e.target.textContent
 
   all_pros.forEach(pro => {
-      if (btn_text == pro.name) current_pro = pro;
-  });
+      if (btn_text == pro.name) current_pro = pro
+  })
   console.log("Current project:", current_pro);
   showProject(pro_heading, tasks_list, current_pro, important, date_pros)
 }
@@ -94,9 +119,11 @@ function addNewProject() {
   let name = project_name.value
   let project = new Project(name)
 
+  // pro_count++
+  // project.index = pro_count
   user_pros.push(project)
   all_pros.push(project)
-  updateProject(user_section, user_pros)
+  updateProject(user_pro_list, user_pros)
   project_modal.close()
   current_pro = project  // HERE
   showProject(pro_heading, tasks_list, current_pro, important, date_pros)
@@ -105,12 +132,14 @@ function addNewProject() {
   if (newButton) {
       addButtonClickListener(newButton)
   }
-  console.log(all_pros)
+  // console.log(all_pros)
+  console.log(user_pros)
 }
 
 add_project.addEventListener('click', addNewProject)
 
 //  Event listeners for the default projects
+//  ass-backward logic i just couldnt let go u__u
 def_pro_btns.forEach(btn => {
   btn.addEventListener('click', (e) => {
     let btn_text = e.target.textContent.toLowerCase()
@@ -143,4 +172,17 @@ add_task.addEventListener('click', () => {
   task_modal.close()
   showProject(pro_heading, tasks_list, current_pro, important, date_pros) 
   console.log('current project before: ', current_pro)
+})
+
+clear_projects.addEventListener('click', () => {
+  user_pros = []
+  user_section.innerHTML = ''
+  pro_count = 0
+  console.log(user_pros)
+})
+
+clear_tasks.addEventListener('click', () => {
+  current_pro.tasks = []
+  tasks_list.innerHTML = ''
+  console.log(current_pro.tasks)
 })

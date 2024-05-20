@@ -1,3 +1,5 @@
+/* #DBF3F1 */
+
 @font-face {
   font-family: 'geist';
   src: url('/resources/font/Geist.Mono/GeistMono-Light.woff2');
@@ -33,16 +35,86 @@ header {
   max-width: 250px;
 }
 
-.new-task-btn {
+/* .new-task-btn {
   margin-top: 70px;
+} */
+
+.project-li {
+  display: flex;
+}
+
+.clear-projects {
+  margin-left: 25px;
+}
+
+.delete-project {
+  width: fit-content;
+  height: fit-content;
+  justify-self: end;
+}
+
+.clear-tasks  {
+  margin-left: 230px;
+}
+
+.user-projects{
+  margin-top: 40px;
+}
+
+.user-projects > h2 {
+  margin-bottom: 20px;
+}
+
+.project-heading {
+  margin-bottom: 20px;
+}
+
+button {
+  height: 30px;
+  min-width: 90px;
+  background-color:rgb(5, 57, 56);
+  border: none;
+  border-radius: 3px;
+  color: rgb(234, 248, 252);
+  font-family: geist;
+  font-size: 0.8rem;
+}
+
+button:hover {
+  background-color: rgb(25, 110, 108);
 }
 
 .project-button,
-.user-project-button {
+.user-project-button,
+.delete-project {
   display: block;
-  margin-bottom: 1rem;
+  margin-top: 1.5rem;
   font-family: geist;
 }
+
+.user-project-button {
+  min-width: 75px;
+  width: fit-content;
+}
+
+.tasks-list {
+  margin-top: 30px;
+}
+
+.tasks-list > li {
+  margin-top: 20px;
+  border-radius: 5px;
+  border: solid 2px rgb(51, 59, 67);
+  padding: 5px 10px 5px 10px;
+  max-width: 90%;
+  width: fit-content;
+  overflow: hidden;
+}
+
+/* .li > p  {
+  max-width: 50%;
+  overflow: hidden;
+} */
 
 .task-modal,
 .project-modal,
@@ -87,7 +159,6 @@ header {
   margin-right: 25px;
   resize: none;
   /* display: block; */
-
 }
 
 .modal-buttons {
@@ -117,8 +188,8 @@ li {
 
 .task-buttons {
   display: flex;
-  /* justify-content: end; */
-  margin-left: 380px;
+  justify-content: end;
+  margin-left: 180px;
 }
 
 .no-date {
@@ -132,5 +203,20 @@ li {
 }
 
 .detail-button {
-  margin-left: 50px;
+  margin-left: 20px;
+  width: 25px;
+  height: 25px;
+}
+
+.addto-important-btn {
+  margin-left: 20px;
+  width: 25px;
+  height: 25px;
+}
+
+.delete-task-button {
+  margin-left: 20px;
+  min-width: fit-content;
+  width: 25px;
+  font-size: 1rem;
 }

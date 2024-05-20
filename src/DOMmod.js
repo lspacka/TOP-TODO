@@ -1,14 +1,42 @@
 const task_detail = document.querySelector('.task-detail-modal')
 const detail_text = document.querySelector('.detail-text')
+const eye_src = '../resources/icons/eye.png'
+const star_src = '../resources/icons/star.png'
 
-
-export function updateProject(div, pros) {
-    let button = document.createElement('button')
+export function updateProject(list, pros) {
+    // const li = document.createElement('li')
+    const pro_name = document.createElement('button')
+    const del_pro = document.createElement('button')
     let project = pros[pros.length-1]
 
-    button.textContent = project.name
-    button.setAttribute("class", "project-button user-project-button")
-    div.appendChild(button)
+    // li.classList.add('project-li')
+    pro_name.textContent = project.name
+    pro_name.setAttribute("class", "project-button user-project-button")
+    del_pro.textContent = 'X'
+    del_pro.classList.add('delete-project')
+
+    pros.forEach((pro, index) => {
+        pro.index = index
+        const li = document.createElement('li')
+
+        li.classList.add('project-li')
+        pro_name.textContent = pro.name
+        pro_name.setAttribute("class", "project-button user-project-button")
+        del_pro.textContent = 'X'
+        del_pro.classList.add('delete-project')
+
+        del_pro.addEventListener('click', () => {
+            pros.splice(pro.index, 1)
+            list.removeChild(li)
+
+            pros.forEach((pro, index) => {
+                pro.index = index
+            })
+            console.log('user pros: ', pros)
+        })
+        li.append(pro_name, del_pro)
+        list.appendChild(li)
+    })
 }
 
 export function showProject(heading, list, currentPro, importantPro, datePros) {
@@ -20,12 +48,14 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
     if (tasks.length > 0) {
         tasks.forEach((task, index) => {
             const li = document.createElement('li')
-            const task_title = document.createElement('p')
+            const task_title = document.createElement('span')
             const task_btns = document.createElement('span')
             const no_date = document.createElement('p')
             const date_input = document.createElement('input')
-            const detail = document.createElement('button')
-            const imp_btn = document.createElement('button')
+            // const detail = document.createElement('button')
+            // const imp_btn = document.createElement('button')
+            const detail = document.createElement('img')
+            const imp_btn = document.createElement('img')
             const del_task = document.createElement('button')
 
             task.index = index
@@ -39,10 +69,12 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
             date_input.setAttribute('type', 'date')
 
             detail.classList.add('detail-button')
-            detail.textContent = 'Detail'
+            // detail.textContent = 'Detail'
+            detail.setAttribute('src', eye_src)
 
             imp_btn.classList.add('addto-important-btn')
-            imp_btn.textContent = 'IMP'
+            // imp_btn.textContent = 'IMP'
+            imp_btn.setAttribute('src', star_src)
 
             del_task.classList.add('delete-task-button')
             del_task.textContent = 'X'
