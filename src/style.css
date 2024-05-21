@@ -40,17 +40,43 @@ header {
 } */
 
 .project-li {
-  display: flex;
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+  border-radius: 5px;
+  border: solid 2px rgb(51, 59, 67);
+  height: fit-content;
+  padding: 0.3rem;
+}
+
+.project-li:hover {
+  border-color: #b1e3df;
+}
+
+.user-project-button,
+#delete-project {
+  background-color: transparent;
 }
 
 .clear-projects {
-  margin-left: 25px;
+  margin-left: 33px;
 }
 
-.delete-project {
-  width: fit-content;
+#delete-project {
+  min-width: fit-content;
+  width: 25px;
   height: fit-content;
+  font-size: 0.9rem;
+  /* background-color: red; */
   justify-self: end;
+  border-radius: 0;
+  color: rgb(161, 168, 176);
+}
+
+#delete-project:hover {
+  color: #DBF3F1;
+  font-weight: bold;
 }
 
 .clear-tasks  {
@@ -59,6 +85,7 @@ header {
 
 .user-projects{
   margin-top: 40px;
+  max-width: 90%;
 }
 
 .user-projects > h2 {
@@ -77,24 +104,34 @@ button {
   border-radius: 3px;
   color: rgb(234, 248, 252);
   font-family: geist;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
 }
 
-button:hover {
+button:not(.user-project-button):hover {
   background-color: rgb(25, 110, 108);
 }
 
-.project-button,
+/* .project-button,
 .user-project-button,
-.delete-project {
+#delete-project {
+  display: block;
+  margin-top: 1.5rem;
+  font-family: geist;
+} */
+
+.default-project-button {
   display: block;
   margin-top: 1.5rem;
   font-family: geist;
 }
 
 .user-project-button {
-  min-width: 75px;
-  width: fit-content;
+  /* max-width: 90px; */
+  width: 193px;
+  /* width: 100%; */
+  height: 100%;
+  border-radius: 0;
+  text-align: left;
 }
 
 .tasks-list {
@@ -124,13 +161,13 @@ button:hover {
   padding: 1rem;
   padding-left: 1.5rem;
   margin: 0 auto;
-  transform: translateY(-200px);
+  transform: translateY(-300px);
   width: 40%;
   max-width: auto;
   border-radius: 0.5rem;
   border: none;
   color: rgb(199, 234, 246);
-  /* position: fixed; */
+  position: absolute;
 }
 
 .task-detail-modal {

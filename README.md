@@ -7,3 +7,4 @@
 - JavaScript
 
 Font - [Geist](https://vercel.com/font)
+Icons - [flaticon](https://www.flaticon.com/)

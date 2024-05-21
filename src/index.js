@@ -13,7 +13,7 @@
 //  + delete all tasks in a project
 //  + delete all projects
 //  - delete project
-//  - fix project display
+//  + fix project display
 //  - local storage
 //    - gets "called" everytime:
 //       - a task gets added/deleted
@@ -95,8 +95,7 @@ TEST.addEventListener('click', () => {
   showProject(pro_heading, tasks_list, current_pro, important, date_pros)
 })
 
-//  clusterfuck procedure for adding event listeners to dynamically added buttons (user projects)
-//  the event listener basically updates the current_pro variable
+//  clusterfuck procedure for adding event listeners to dynamically added buttons in the user projects
 function handleButtonClick(e) {
   let btn_text = e.target.textContent
 
@@ -107,8 +106,27 @@ function handleButtonClick(e) {
   showProject(pro_heading, tasks_list, current_pro, important, date_pros)
 }
 
+function deleteProject(list, userPros, pro) {
+  const li = list.children[pro.index]
+  
+  list.removeChild(li)
+  userPros.splice(pro.index, 1)
+  userPros.forEach((pro, index) => {
+    pro.index = index
+  })
+  console.log(userPros)
+  console.log(list)
+  // console.log('this index: ', pro.index)
+}
+
 function addButtonClickListener(button) {
   button.addEventListener('click', handleButtonClick);
+}
+
+function deleteProListener(button, list, userPros, pro) {
+  button.addEventListener('click', () => {
+    deleteProject(list, userPros, pro)
+  })
 }
 
 user_pro_btns.forEach(btn => {  
@@ -119,8 +137,8 @@ function addNewProject() {
   let name = project_name.value
   let project = new Project(name)
 
-  // pro_count++
-  // project.index = pro_count
+  project.index = pro_count
+  pro_count++
   user_pros.push(project)
   all_pros.push(project)
   updateProject(user_pro_list, user_pros)
@@ -128,10 +146,18 @@ function addNewProject() {
   current_pro = project  // HERE
   showProject(pro_heading, tasks_list, current_pro, important, date_pros)
 
-  let newButton = document.querySelector('.user-project-button:last-child')
-  if (newButton) {
-      addButtonClickListener(newButton)
-  }
+  // let newButton = document.querySelector('.user-project-button:last-child')
+  const last_li = document.querySelector('.project-li:last-child')
+  const parent_list = last_li.parentNode
+  let buttons = last_li.querySelectorAll('button')
+  let pro_name = buttons[0]
+  let del_pro = buttons[1]
+
+  if (pro_name) addButtonClickListener(pro_name)
+  if (del_pro) deleteProListener(del_pro, parent_list, user_pros, project)
+
+
+  // let newDelete = document.querySelector('')
   // console.log(all_pros)
   console.log(user_pros)
 }
@@ -139,7 +165,6 @@ function addNewProject() {
 add_project.addEventListener('click', addNewProject)
 
 //  Event listeners for the default projects
-//  ass-backward logic i just couldnt let go u__u
 def_pro_btns.forEach(btn => {
   btn.addEventListener('click', (e) => {
     let btn_text = e.target.textContent.toLowerCase()
@@ -176,7 +201,7 @@ add_task.addEventListener('click', () => {
 
 clear_projects.addEventListener('click', () => {
   user_pros = []
-  user_section.innerHTML = ''
+  user_pro_list.innerHTML = ''
   pro_count = 0
   console.log(user_pros)
 })
