@@ -12,8 +12,9 @@
 //  + make new user project current one
 //  + delete all tasks in a project
 //  + delete all projects
-//  - delete project
+//  + delete project
 //  + fix project display
+//  - edit task
 //  - local storage
 //    - gets "called" everytime:
 //       - a task gets added/deleted
@@ -49,6 +50,7 @@ const task_detail = document.querySelector('.task-detail-modal')
 const close_detail = document.querySelector('.close-detail')
 const clear_projects = document.querySelector('.clear-projects')
 const clear_tasks = document.querySelector('.clear-tasks')
+const overlay = document.querySelector('.overlay')
 const TEST = document.querySelector('.test-button')
 
 class Task {
@@ -70,10 +72,10 @@ class Project {
   }
 }
 
-const default_pro = new Project('tasks')
-const today = new Project('today')
-const this_week = new Project('this week')
-const important = new Project('important')
+const default_pro = new Project('Tasks')
+const today = new Project('Today')
+const this_week = new Project('This Week')
+const important = new Project('Important')
 
 let user_pros = []
 let current_pro = default_pro
@@ -143,6 +145,7 @@ function addNewProject() {
   all_pros.push(project)
   updateProject(user_pro_list, user_pros)
   project_modal.close()
+  overlay.style.display = 'none'
   current_pro = project  // HERE
   showProject(pro_heading, tasks_list, current_pro, important, date_pros)
 
@@ -167,7 +170,7 @@ add_project.addEventListener('click', addNewProject)
 //  Event listeners for the default projects
 def_pro_btns.forEach(btn => {
   btn.addEventListener('click', (e) => {
-    let btn_text = e.target.textContent.toLowerCase()
+    let btn_text = e.target.textContent
     all_pros.forEach(pro => {
       if (btn_text == pro.name) current_pro = pro
     })
@@ -184,7 +187,8 @@ ModalHandler(
   project_modal,
   task_modal,
   task_detail,
-  close_detail
+  close_detail,
+  overlay
 )
 
 add_task.addEventListener('click', () => {
@@ -195,6 +199,7 @@ add_task.addEventListener('click', () => {
   if (current_pro == important) task.important = true
   current_pro.tasks.push(task)
   task_modal.close()
+  overlay.style.display = 'none'
   showProject(pro_heading, tasks_list, current_pro, important, date_pros) 
   console.log('current project before: ', current_pro)
 })
@@ -202,6 +207,8 @@ add_task.addEventListener('click', () => {
 clear_projects.addEventListener('click', () => {
   user_pros = []
   user_pro_list.innerHTML = ''
+  current_pro = default_pro
+  showProject(pro_heading, tasks_list, current_pro)
   pro_count = 0
   console.log(user_pros)
 })

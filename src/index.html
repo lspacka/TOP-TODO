@@ -36,11 +36,12 @@
         </div>
       </div>
     </div>
+    <div class="overlay"></div>
     <dialog class="task-modal">
       <h2 class="modal-heading"></h2>
       <form action="">
         <label for="" class="label">Task</label>
-        <input type="text" class="task-title">
+        <input type="text" class="task-title" maxlength="30">
         <label for="" class="label">Description</label>
         <textarea class="task-desc"></textarea>
       </form>
@@ -51,7 +52,7 @@
     </dialog>
     <dialog class="project-modal">
       <label for="">Name</label>
-      <input type="text" class="project-name">
+      <input type="text" class="project-name" maxlength="20">
       <div class="modal-buttons">
         <button class="modal-button" id="add-project">Add</button>
         <button class="modal-button" id="cancel-project">Cancel</button>

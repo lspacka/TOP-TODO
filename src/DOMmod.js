@@ -3,42 +3,6 @@ const detail_text = document.querySelector('.detail-text')
 const eye_src = '../resources/icons/eye.png'
 const star_src = '../resources/icons/star.png'
 
-// export function updateProject(list, pros) {
-//     // const li = document.createElement('li')
-//     const pro_name = document.createElement('button')
-//     const del_pro = document.createElement('button')
-//     let project = pros[pros.length-1]
-
-//     // li.classList.add('project-li')
-//     pro_name.textContent = project.name
-//     pro_name.setAttribute("class", "project-button user-project-button")
-//     del_pro.textContent = 'X'
-//     del_pro.classList.add('delete-project')
-
-//     pros.forEach((pro, index) => {
-//         pro.index = index
-//         const li = document.createElement('li')
-
-//         li.classList.add('project-li')
-//         pro_name.textContent = pro.name
-//         pro_name.setAttribute("class", "project-button user-project-button")
-//         del_pro.textContent = 'X'
-//         del_pro.classList.add('delete-project')
-
-//         del_pro.addEventListener('click', () => {
-//             pros.splice(pro.index, 1)
-//             list.removeChild(li)
-
-//             pros.forEach((pro, index) => {
-//                 pro.index = index
-//             })
-//             console.log('user pros: ', pros)
-//         })
-//         li.append(pro_name, del_pro)
-//         list.appendChild(li)
-//     })
-// }
-
 export function updateProject(list, pros) {
     let li = document.createElement('li')
     let pro_name = document.createElement('button')
@@ -209,22 +173,28 @@ export function ModalHandler(
     proModal, 
     taskModal,
     detailModal,
-    closeDetail
+    closeDetail,
+    overlay
 ) {
     newPro.addEventListener('click', () => {
+        overlay.style.display = 'block'
         proModal.show()
+        // proModal.style.display = 'block'
     })
 
     cancelPro.addEventListener('click', () => {
         proModal.close()
+        overlay.style.display = 'none'
     })
 
     newTask.addEventListener('click', () => {
         taskModal.show()
+        overlay.style.display = 'block'
     })
 
     cancelTask.addEventListener('click', () => {
         taskModal.close()
+        overlay.style.display = 'none'
         console.log('this guy fucks')
     })
 
