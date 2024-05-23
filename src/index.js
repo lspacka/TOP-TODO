@@ -51,6 +51,8 @@ const close_detail = document.querySelector('.close-detail')
 const clear_projects = document.querySelector('.clear-projects')
 const clear_tasks = document.querySelector('.clear-tasks')
 const overlay = document.querySelector('.overlay')
+const field_required = document.querySelector('.field-required')
+const pro_field_required = document.querySelector('.pro-field-required')
 const TEST = document.querySelector('.test-button')
 
 class Task {
@@ -76,14 +78,14 @@ const default_pro = new Project('Tasks')
 const today = new Project('Today')
 const this_week = new Project('This Week')
 const important = new Project('Important')
+const date_pros = [today, this_week]
 
 let user_pros = []
 let current_pro = default_pro
 let all_pros = [default_pro, today, this_week, important]
-const date_pros = [today, this_week]
-showProject(pro_heading, tasks_list, current_pro, date_pros)
 let pro_count = 0
-// console.log(date_pros)
+
+showProject(pro_heading, tasks_list, current_pro, date_pros)
 
 TEST.addEventListener('click', () => {
   console.log('(TEST) current pro: ', current_pro)
@@ -97,7 +99,7 @@ TEST.addEventListener('click', () => {
   showProject(pro_heading, tasks_list, current_pro, important, date_pros)
 })
 
-//  clusterfuck procedure for adding event listeners to dynamically added buttons in the user projects
+//  brainfuck procedure for adding event listeners to dynamically added buttons in the user projects
 function handleButtonClick(e) {
   let btn_text = e.target.textContent
 
@@ -138,6 +140,12 @@ user_pro_btns.forEach(btn => {
 function addNewProject() {
   let name = project_name.value
   let project = new Project(name)
+
+  if (!name) {
+    pro_field_required.style.display = 'block'
+    project_name.style.outline = 'solid 2px #ff6200'
+    return
+  }
 
   project.index = pro_count
   pro_count++
@@ -191,10 +199,30 @@ ModalHandler(
   overlay
 )
 
+task_title.addEventListener('change', () => {
+  if (task_title.value) {
+    field_required.style.display = 'none'
+    task_title.style.outline = 'none'
+  }
+})
+
+project_name.addEventListener('change', () => {
+  if (project_name.value) {
+    pro_field_required.style.display = 'none'
+    project_name.style.outline = 'none'
+  }
+})
+
 add_task.addEventListener('click', () => {
   let title = task_title.value
   let desc = task_desc.value
   let task = new Task(title, desc)
+
+  if (!title) {
+    field_required.style.display = 'block'
+    task_title.style.outline = 'solid 2px #ff6200'
+    return
+  }
 
   if (current_pro == important) task.important = true
   current_pro.tasks.push(task)

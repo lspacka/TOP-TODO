@@ -2,8 +2,10 @@
 /* this code got out of hand before I even noticed. prolly the messiest css I've ever written. w/e, couldnt be bothered tbh... */
 /* 
   + input limit
+  - title required
   - move tasks buttons
-  - modal block and fix
+  + modal block and fix
+  - fix task detail overflow
   - star fill
 */
 
@@ -22,6 +24,7 @@ body {
   background-color: rgb(19, 30, 33);
   font-family: 'courier';
   color: lightcyan;
+  height: 100vh;
   /* padding-top: 1rem; */
 }
 
@@ -29,6 +32,11 @@ header {
   border-bottom: 1px solid lightblue;
   font-size: 2rem;
   margin-top: 1rem;
+}
+
+label {
+  font-size: 0.83rem;
+  font-weight: bold;
 }
 
 .content {
@@ -220,23 +228,40 @@ button:not(.user-project-button, .delete-task-button):hover {
 } */
 
 .task-modal,
-.project-modal,
 .task-detail-modal {
   background: rgb(21, 82, 87);
   z-index: 1;
   padding: 1rem;
   padding-left: 1.5rem;
   margin: 0 auto;
-  /* transform: translateY(-300px); */
-  width: 40%;
+  /* transform: translateX(-55px); */
+  width: 30%;
   max-width: auto;
   border-radius: 0.5rem;
   border: none;
   color: rgb(199, 234, 246);
-  position: fixed;
-  place-self: center;
-  /* display: none; */
+  font-family: geist;
   /* transform: translate(25vw, -50vh); */
+}
+
+.project-modal {
+  width: 21.5%;
+  transform: translateY(300px);
+  background: rgb(21, 82, 87);
+  z-index: 1;
+  padding: 1rem;
+  padding-left: 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-family: geist;
+  color: rgb(199, 234, 246);
+}
+
+.project-name {
+  width: 90%;
+  height: 25px;
+  display: block;
+  margin: 10px 0 10px 0;
 }
 
 .task-detail-modal {
@@ -254,8 +279,14 @@ button:not(.user-project-button, .delete-task-button):hover {
   font-weight: bold;
 }
 
+input {
+  border-radius: 3px;
+  outline: none;
+  border: none;
+}
+
 .task-title {
-  width: 50%;
+  width: 70%;
   height: 30px;
 }
 
@@ -298,8 +329,33 @@ li {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.83);
   display: none; 
   /* display: flex; */
   /* z-index: -1; */
+}
+
+.field-required {
+  display: inline;
+  font-size: 0.8rem;
+  font-weight: bold;
+  font-family: geist;
+  color: #ff8800;
+  align-self: end;
+  margin-left: 10px;
+  display: none;
+}
+
+.pro-field-required {
+  display: inline;
+  font-size: 0.6rem;
+  font-weight: bold;
+  font-family: geist;
+  color: #ff8800;
+  align-self: end;
+  display: none;
+}
+
+.task-title-area {
+  display: flex;
 }

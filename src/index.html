@@ -35,33 +35,45 @@
           <ul class="tasks-list"></ul>
         </div>
       </div>
+      <div class="overlay"></div>
+      <!-- MODALS -->
+      <dialog class="task-modal">
+        <h2 class="modal-heading"></h2>
+        <form>
+          <label for="task-title" class="label">Task</label>
+          <div class="task-title-area">
+            <input type="text" class="task-title" name="task-title" maxlength="30" required /> <!---->
+            <span class="field-required">Required</span>
+          </div>
+          <!-- <label for="task-title" class="label">Task</label>
+          <input type="text" class="task-title" name="task-title" maxlength="30" required /> 
+          <span class="field-required">Required</span> -->
+          <label for="task-desc" class="label" name="task-desk">Description</label>
+          <textarea class="task-desc"></textarea>
+          <!-- <div class="modal-buttons">
+            <button class="modal-button" id="add-task">Add</button>
+            <button class="modal-button" id="cancel-task" type="button">Cancel</button>
+          </div> -->
+        </form>
+        <div class="modal-buttons">
+          <button class="modal-button" id="add-task" type="submit">Add</button>
+          <button class="modal-button" id="cancel-task">Cancel</button>
+        </div>
+      </dialog>
+      <dialog class="project-modal">
+        <label for="">Name</label>
+        <input type="text" class="project-name" maxlength="20" required>
+        <span class="pro-field-required">Required</span>
+        <div class="modal-buttons">
+          <button class="modal-button" id="add-project">Add</button>
+          <button class="modal-button" id="cancel-project">Cancel</button>
+        </div>
+      </dialog>
+      <dialog class="task-detail-modal">
+        <div class="detail-text"></div>
+        <button class="close-detail">Close</button>
+      </dialog>
     </div>
-    <div class="overlay"></div>
-    <dialog class="task-modal">
-      <h2 class="modal-heading"></h2>
-      <form action="">
-        <label for="" class="label">Task</label>
-        <input type="text" class="task-title" maxlength="30">
-        <label for="" class="label">Description</label>
-        <textarea class="task-desc"></textarea>
-      </form>
-      <div class="modal-buttons">
-        <button class="modal-button" id="add-task">Add</button>
-        <button class="modal-button" id="cancel-task">Cancel</button>
-      </div>
-    </dialog>
-    <dialog class="project-modal">
-      <label for="">Name</label>
-      <input type="text" class="project-name" maxlength="20">
-      <div class="modal-buttons">
-        <button class="modal-button" id="add-project">Add</button>
-        <button class="modal-button" id="cancel-project">Cancel</button>
-      </div>
-    </dialog>
-    <dialog class="task-detail-modal">
-      <div class="detail-text"></div>
-      <button class="close-detail">Close</button>
-    </dialog>
   </main>
 </body>
 </html>
