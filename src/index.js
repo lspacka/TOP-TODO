@@ -14,6 +14,7 @@
 //  + delete all projects
 //  + delete project
 //  + fix project display
+//  - fix bug when manually clearing user projects
 //  - edit task
 //  - local storage
 //    - gets "called" everytime:
@@ -78,11 +79,11 @@ const default_pro = new Project('Tasks')
 const today = new Project('Today')
 const this_week = new Project('This Week')
 const important = new Project('Important')
-const date_pros = [today, this_week]
 
-let user_pros = []
+const date_pros = [today, this_week]
+const user_pros = []
 let current_pro = default_pro
-let all_pros = [default_pro, today, this_week, important]
+const all_pros = [default_pro, today, this_week, important]
 let pro_count = 0
 
 showProject(pro_heading, tasks_list, current_pro, date_pros)
@@ -112,12 +113,24 @@ function handleButtonClick(e) {
 
 function deleteProject(list, userPros, pro) {
   const li = list.children[pro.index]
-  
+
   list.removeChild(li)
   userPros.splice(pro.index, 1)
   userPros.forEach((pro, index) => {
     pro.index = index
+    pro_count--
   })
+
+  if (userPros[pro.index]) {
+    current_pro = userPros[pro.index]
+  } else if (userPros[pro.index - 1]) {
+    current_pro = userPros[pro.index - 1]
+  } else {
+    current_pro = default_pro
+  }
+  showProject(pro_heading, tasks_list, current_pro)
+
+  console.log('current pro: ', current_pro) 
   console.log(userPros)
   console.log(list)
   // console.log('this index: ', pro.index)
@@ -165,7 +178,7 @@ function addNewProject() {
   let del_pro = buttons[1]
 
   if (pro_name) addButtonClickListener(pro_name)
-  if (del_pro) deleteProListener(del_pro, parent_list, user_pros, project)
+  if (del_pro) deleteProListener(del_pro, parent_list, user_pros,  project)
 
 
   // let newDelete = document.querySelector('')
