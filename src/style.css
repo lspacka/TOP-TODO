@@ -3,12 +3,12 @@
 /* 
   + input limit
   + title required
-  - move tasks buttons
+  + move tasks buttons
   + modal block and fix
-  - fix task detail overflow
-  - add date "cancel"
-  - smaller def pro btns
-  - fix weird .user-project-button padding
+  + fix task detail overflow
+  + add date "cancel"
+  + smaller def pro btns
+  + fix weird .user-project-button padding
   - star fill
 */
 
@@ -35,6 +35,8 @@ header {
   border-bottom: 1px solid lightblue;
   font-size: 2rem;
   margin-top: 1rem;
+  display: flex;
+  align-items: end;
 }
 
 label {
@@ -57,12 +59,11 @@ label {
   width: 60%;
 }
 
-/* .new-task-btn {
-  margin-top: 70px;
-} */
+
 
 .project-display {
   width: 100%;
+  /* display: flex; */
 }
 
 .project-li {
@@ -74,7 +75,6 @@ label {
   border: solid 2px rgb(51, 59, 67);
   height: 30px;
   padding: 0 0.4rem 0 0.4rem;
-  /* padding: 0.3rem; */
 }
 
 .project-li:hover {
@@ -87,7 +87,7 @@ label {
 }
 
 .clear-projects {
-  margin-left: 33px;
+  margin-left: 53px;
 }
 
 #delete-project {
@@ -106,9 +106,7 @@ label {
   font-weight: bold;
 }
 
-.clear-tasks  {
-  margin-left: 230px;
-}
+
 
 .user-projects{
   margin-top: 40px;
@@ -119,8 +117,17 @@ label {
   margin-bottom: 20px;
 }
 
-.project-heading {
+/* .project-header {
   margin-bottom: 20px;
+} */
+
+.project-heading {
+  display: flex;
+  margin-bottom: 50px;
+}
+
+.project-heading > button {
+  align-items: end;
 }
 
 button {
@@ -150,16 +157,21 @@ button:not(.user-project-button, .delete-task-button):hover {
   display: block;
   margin-top: 1.5rem;
   font-family: geist;
+  font-size: 0.7rem;
+  height: 25px;
+  min-width: 85px;
 }
 
 .user-project-button {
   /* max-width: 90px; */
   width: 193px;
   /* width: 100%; */
-  height: 100%;
+  height: 135%;
   margin: 0;
   border-radius: 0;
   text-align: left;
+  flex: 1;
+  transform: translateY(-3px);
 }
 
 .tasks-list {
@@ -192,6 +204,7 @@ button:not(.user-project-button, .delete-task-button):hover {
 
 .no-date {
   cursor:context-menu;
+  /* z-index: 2; */
 }
 
 .date-input {
@@ -272,6 +285,7 @@ button:not(.user-project-button, .delete-task-button):hover {
 .task-detail-modal {
   font-family: geist;
   color:rgb(233, 242, 245);
+  height: fit-content;
 }
 
 .task-modal * {
@@ -295,12 +309,22 @@ input {
   height: 30px;
 }
 
-.task-desc {
+.task-desc,
+.detail-text {
   width: 98%;
   height: 60px;
   margin-right: 25px;
   resize: none;
   /* display: block; */
+}
+
+.detail-text {
+  background-color: transparent;
+  border: none;
+  color: rgb(233, 242, 245);
+  padding: 5px;
+  outline: none;
+  height: 120px;
 }
 
 .modal-buttons {
@@ -363,4 +387,44 @@ li {
 
 .task-title-area {
   display: flex;
+}
+
+.add-project,
+.clear-projects,
+.new-task-btn,
+.clear-tasks {
+  height: 25px;
+  min-width: 80px;
+  font-size: 0.7rem;
+  background-color: rgb(6, 48, 47);
+}
+
+.new-task-btn,
+.clear-tasks {
+  font-size: 0.7rem;
+  min-width: 75px;
+  height: 35px;
+  position: relative;
+}
+
+.heading-buttons {
+  margin-left: 50px;
+  margin-bottom: 7px;
+  display: flex;
+}
+
+/* .new-task-btn {
+  transform: translateX(290px);
+} */
+
+.clear-tasks  {
+  margin-left: 30px;
+} 
+
+.close-detail {
+  margin-top: 15px;
+}
+
+.tasks-list > li {
+ z-index: 1;
 }

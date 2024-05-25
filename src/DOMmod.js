@@ -1,5 +1,8 @@
 const task_detail = document.querySelector('.task-detail-modal')
 const detail_text = document.querySelector('.detail-text')
+const overlay = document.querySelector('.overlay')
+const detail_btn = document.querySelector('.detail-button')
+const body = document.body
 const eye_src = '../resources/icons/eye.png'
 const star_src = '../resources/icons/star.png'
 
@@ -44,6 +47,7 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
 
             no_date.classList.add('no-date')
             no_date.textContent = task.date ? task.date : 'Add Date'
+            // no_date.style.cursor = 'pointer'
 
             date_input.classList.add('date-input')
             date_input.setAttribute('type', 'date')
@@ -63,21 +67,37 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
             // li.setAttribute('key', index)
             // li.textContent = task.title
 
-            no_date.addEventListener('click', () => {
+            no_date.addEventListener('click', (e) => {
+                e.stopPropagation()
                 date_input.style.visibility = 'visible'
+                // no_date.style.visibility = 'hidden'
             })
 
             date_input.addEventListener('change', () => {
                 task.date = date_input.value
                 no_date.textContent = task.date
                 date_input.style.visibility = 'hidden'
+
                 sortDate(task, datePros, currentPro, list, li)
                 console.log(currentPro)
             })
 
+            date_input.addEventListener('click', (e) => {
+                e.stopPropagation()
+            })
+
+             //  change body for li if there are issues
+            body.addEventListener('click', () => {         
+                if (date_input.style.visibility == 'visible' ) {
+                    date_input.style.visibility = 'hidden'
+                    // no_date.style.visibility = 'visible'
+                }
+            })
+
             detail.addEventListener('click', () => {
-                detail_text.textContent = task.desc
+                detail_text.textContent = task.desc ? task.desc : task.title
                 task_detail.show()
+                overlay.style.display = 'block'
             })
 
             imp_btn.addEventListener('click', () => {
@@ -200,5 +220,12 @@ export function ModalHandler(
 
     closeDetail.addEventListener('click', () => {
         detailModal.close()
+        overlay.style.display = 'none'
     })
+
+    // detail_btn.addEventListener('click', () => {
+    //     detail_text.textContent = task.desc
+    //     detailModal.show()
+    //     overlay.style.display = 'block'
+    // })
 }

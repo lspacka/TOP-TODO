@@ -15,7 +15,9 @@
 //  + delete project
 //  + fix project display
 //  - fix bug when manually clearing user projects
+//  + add title to detail if there's no detail
 //  - edit task
+//  - add tooltips to task 
 //  - local storage
 //    - gets "called" everytime:
 //       - a task gets added/deleted
@@ -38,7 +40,7 @@ const add_project = document.getElementById('add-project')
 const cancel_project = document.getElementById('cancel-project')
 const project_modal = document.querySelector('.project-modal')
 const project_name = document.querySelector('.project-name')
-const pro_heading = document.querySelector('.project-heading')  // 2DOM
+const pro_heading = document.querySelector('.project-header')  // 2DOM
 const new_task = document.querySelector('.new-task-btn')
 const task_modal = document.querySelector('.task-modal')
 const task_title = document.querySelector('.task-title')
@@ -120,6 +122,23 @@ function deleteProject(list, userPros, pro) {
     pro.index = index
     pro_count--
   })
+
+  // attempt to fix that project display bug
+  // if (!userPros.includes(current_pro)) {
+  //   // showProject(pro_heading, tasks_list, current_pro)
+  //   return
+  // }
+
+  // if (userPros.includes(current_pro)) {
+  //   if (userPros[pro.index]) {
+  //     current_pro = userPros[pro.index]
+  //   } else if (userPros[pro.index - 1]) {
+  //     current_pro = userPros[pro.index - 1]
+  //   } else {
+  //     current_pro = default_pro
+  //   }
+  //   showProject(pro_heading, tasks_list, current_pro)
+  // }
 
   if (userPros[pro.index]) {
     current_pro = userPros[pro.index]
