@@ -5,6 +5,7 @@ const detail_btn = document.querySelector('.detail-button')
 const body = document.body
 const eye_src = '../resources/icons/eye.png'
 const star_src = '../resources/icons/star.png'
+const star_fill = '../resources/icons/star-fill.png'
 
 export function updateProject(list, pros) {
     let li = document.createElement('li')
@@ -35,8 +36,6 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
             const task_btns = document.createElement('span')
             const no_date = document.createElement('p')
             const date_input = document.createElement('input')
-            // const detail = document.createElement('button')
-            // const imp_btn = document.createElement('button')
             const detail = document.createElement('img')
             const imp_btn = document.createElement('img')
             const del_task = document.createElement('button')
@@ -47,25 +46,19 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
 
             no_date.classList.add('no-date')
             no_date.textContent = task.date ? task.date : 'Add Date'
-            // no_date.style.cursor = 'pointer'
 
             date_input.classList.add('date-input')
             date_input.setAttribute('type', 'date')
 
             detail.classList.add('detail-button')
-            // detail.textContent = 'Detail'
             detail.setAttribute('src', eye_src)
 
             imp_btn.classList.add('addto-important-btn')
-            // imp_btn.textContent = 'IMP'
-            imp_btn.setAttribute('src', star_src)
+            imp_btn.setAttribute('src', '')
+            imp_btn.src = task.important ? star_fill : star_src
 
             del_task.classList.add('delete-task-button')
             del_task.textContent = 'X'
-            // del_task.setAttribute('key', index)
-
-            // li.setAttribute('key', index)
-            // li.textContent = task.title
 
             no_date.addEventListener('click', (e) => {
                 e.stopPropagation()
@@ -104,11 +97,13 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
                 task.important = task.important ? false : true
 
                 if (task.important && !importantPro.tasks.includes(task)) {
+                    imp_btn.src = star_fill
                     importantPro.tasks.push(task)
                     task.index = importantPro.tasks.indexOf(task)
                 }
                 
                 if (!task.important && importantPro.tasks.includes(task)) {
+                    imp_btn.src = star_src
                     importantPro.tasks.splice(task.index, 1)
                     importantPro == currentPro && list.removeChild(li)
 
@@ -131,7 +126,7 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
                 console.log(currentPro)
             })
 
-            task_btns.append(no_date, date_input, detail,  imp_btn, del_task)
+            task_btns.append(no_date, date_input, detail, imp_btn, del_task)
             li.append(task_title, task_btns)
             list.appendChild(li)
         })  
