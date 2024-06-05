@@ -3,7 +3,14 @@ const detail_text = document.querySelector('.detail-text')
 const overlay = document.querySelector('.overlay')
 const detail_btn = document.querySelector('.detail-button')
 const body = document.body
+const edit_task_modal = document.querySelector('.edit-task-modal')
+const edit_title = document.querySelector('#edit-title')
+const edit_desc = document.querySelector('#edit-desc')
+const edit_task_accept = document.getElementById('edit-task-accept')
+const cancel_edit_task = document.getElementById('cancel-edit-task')
+
 const eye_src = '../resources/icons/eye.png'
+const edit_src = '../resources/icons/pencil.png'
 const star_src = '../resources/icons/star.png'
 const star_fill = '../resources/icons/star-fill.png'
 
@@ -37,6 +44,7 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
             const no_date = document.createElement('p')
             const date_input = document.createElement('input')
             const detail = document.createElement('img')
+            const edit_task = document.createElement('img')
             const imp_btn = document.createElement('img')
             const del_task = document.createElement('button')
 
@@ -46,15 +54,23 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
 
             no_date.classList.add('no-date')
             no_date.textContent = task.date ? task.date : 'Add Date'
+            no_date.setAttribute('title', 'Add due date')
 
             date_input.classList.add('date-input')
             date_input.setAttribute('type', 'date')
 
             detail.classList.add('detail-button')
             detail.setAttribute('src', eye_src)
+            detail.setAttribute('title', 'See Detail')
+
+            edit_task.classList.add('edit-task')
+            edit_task.setAttribute('src', edit_src)
+            edit_task.setAttribute('id', null)
+            edit_task.setAttribute('title', 'Edit Task')
 
             imp_btn.classList.add('addto-important-btn')
             imp_btn.setAttribute('src', '')
+            imp_btn.setAttribute('title', 'Add to Important')
             imp_btn.src = task.important ? star_fill : star_src
 
             del_task.classList.add('delete-task-button')
@@ -93,6 +109,45 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
                 overlay.style.display = 'block'
             })
 
+            edit_task.addEventListener('click', () => {
+                edit_task.id = index
+                let current_task = tasks[edit_task.id]
+                edit_task_modal.show()
+                overlay.style.display = 'block'
+                console.log(edit_task.id)
+                console.log(current_task)
+
+                edit_task_accept.addEventListener('click', (e) => {
+                    e.stopPropagation()
+    
+                    current_task.title = edit_title.value
+                    task_title.textContent = current_task.title
+                    current_task.desc = edit_desc.value
+                    edit_task_modal.close()
+                    overlay.style.display = 'none'
+                    console.log('task after edit: ', current_task)
+                })
+                
+                cancel_edit_task.addEventListener('click', () => {
+                    edit_task_modal.close()
+                    overlay.style.display = 'none'
+                })
+            })
+
+            // edit_task_accept.addEventListener('click', (e) => {
+            //     e.stopPropagation()
+
+            //     task.title = edit_title.value
+            //     task_title.textContent = task.title
+            //     task.desc = edit_desc.value
+            //     edit_task_modal.close()
+            //     overlay.style.display = 'none'
+            // })
+            // cancel_edit_task.addEventListener('click', () => {
+            //     edit_task_modal.close()
+            //     overlay.style.display = 'none'
+            // })
+
             imp_btn.addEventListener('click', () => {
                 task.important = task.important ? false : true
 
@@ -126,9 +181,13 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
                 console.log(currentPro)
             })
 
-            task_btns.append(no_date, date_input, detail, imp_btn, del_task)
+            task_btns.append(no_date, date_input, detail, edit_task, imp_btn, del_task)
             li.append(task_title, task_btns)
             list.appendChild(li)
+        })
+        
+        tasks.forEach((task, index) => {
+            //
         })  
     }
 }

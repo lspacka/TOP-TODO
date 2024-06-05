@@ -127,7 +127,7 @@ function deleteProject(list, userPros, pro) {
 
   // attempt to fix that project display bug
   // if (!userPros.includes(current_pro)) {
-  //   // showProject(pro_heading, tasks_list, current_pro)
+  //   // current_pro = current_pro
   //   return
   // }
 
@@ -149,6 +149,7 @@ function deleteProject(list, userPros, pro) {
   } else {
     current_pro = default_pro
   }
+
   showProject(pro_heading, tasks_list, current_pro)
 
   console.log('current pro: ', current_pro) 

@@ -9,7 +9,7 @@
   + add date "cancel"
   + smaller def pro btns
   + fix weird .user-project-button padding
-  - star fill
+  + star fill
 */
 
 @font-face {
@@ -219,33 +219,17 @@ button:not(.user-project-button, .delete-task-button):hover {
   height: 20px;
 }
 
-/* .star-container {
-  position: relative;
-  display: inline-block;
+.edit-task {
   margin-left: 20px;
-} */
-
-/* .star-container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #DBF3F1;
-  z-index: 0;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-  mask-image: url('../resources/icons/star-fill.png');
-  mask-size: contain;
-  mask-repeat: no-repeat;
-} */
+  width: 15px;
+  height: 15px;
+}
 
 .addto-important-btn {
   margin-left: 20px;
   width: 18px;
   height: 18px;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .delete-task-button {
@@ -269,7 +253,8 @@ button:not(.user-project-button, .delete-task-button):hover {
 } */
 
 .task-modal,
-.task-detail-modal {
+.task-detail-modal,
+.edit-task-modal {
   background: rgb(21, 82, 87);
   z-index: 1;
   padding: 1rem;
@@ -451,15 +436,3 @@ li {
 .tasks-list > li {
  z-index: 1;
 }
-
-/* 
-  filter vals:
-  brightness(0) 
-  saturate(100%) 
-  invert(99%) 
-  sepia(3%) 
-  saturate(1078%) 
-  hue-rotate(106deg) 
-  brightness(94%) 
-  contrast(102%)
-*/
