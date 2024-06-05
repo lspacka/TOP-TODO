@@ -1,16 +1,6 @@
 /* #DBF3F1 */
 /* this code got out of hand before I even noticed. prolly the messiest css I've ever written. w/e, couldnt be bothered tbh... */
-/* 
-  + input limit
-  + title required
-  + move tasks buttons
-  + modal block and fix
-  + fix task detail overflow
-  + add date "cancel"
-  + smaller def pro btns
-  + fix weird .user-project-button padding
-  + star fill
-*/
+/* might clean it up someday */
 
 @font-face {
   font-family: 'geist';
@@ -317,6 +307,11 @@ input {
 .task-title {
   width: 70%;
   height: 30px;
+}
+
+#edit-title,
+#edit-desc {
+  margin: 15px 0 15px 0;
 }
 
 .task-desc,

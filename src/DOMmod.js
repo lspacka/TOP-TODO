@@ -2,13 +2,12 @@ const task_detail = document.querySelector('.task-detail-modal')
 const detail_text = document.querySelector('.detail-text')
 const overlay = document.querySelector('.overlay')
 const content = document.querySelector('.content')
+const project_name = document.querySelector('.project-name')
+const pro_field_required = document.querySelector('.pro-field-required')
+const task_title = document.querySelector('.task-title')
+const field_required = document.querySelector('.field-required')
 const detail_btn = document.querySelector('.detail-button')
 const body = document.body
-const edit_task_modal = document.querySelector('.edit-task-modal')
-const edit_title = document.querySelector('#edit-title')
-const edit_desc = document.querySelector('#edit-desc')
-const edit_task_accept = document.getElementById('edit-task-accept')
-const cancel_edit_task = document.getElementById('cancel-edit-task')
 
 const eye_src = '../resources/icons/eye.png'
 const edit_src = '../resources/icons/pencil.png'
@@ -111,121 +110,148 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
             })
 
             // make new edit modal for each task 
-            const dialog = document.createElement('dialog')
-            const modal_heading = document.createElement('h2')
-            const form = document.createElement('form')
-            const task_label = document.createElement('label')
-            const title_area = document.createElement('div')
-            const modal_task_title = document.createElement('input')
-            const field_required = document.createElement('span')
-            const desc_label = document.createElement('label')
-            const task_desc = document.createElement('textarea')
-            const modal_btns = document.createElement('div')
-            const accept_edit = document.createElement('button')
-            const cancel_edit = document.createElement('button')
+            // const dialog = document.createElement('dialog')
+            // const modal_heading = document.createElement('h2')
+            // const form = document.createElement('form')
+            // const task_label = document.createElement('label')
+            // const title_area = document.createElement('div')
+            // const modal_task_title = document.createElement('input')
+            // const field_required = document.createElement('span')
+            // const desc_label = document.createElement('label')
+            // const task_desc = document.createElement('textarea')
+            // const modal_btns = document.createElement('div')
+            // const accept_edit = document.createElement('button')
+            // const cancel_edit = document.createElement('button')
 
-            dialog.classList.add('edit-task-modal')
-            modal_heading.classList.add('modal-heading')
+            // dialog.classList.add('edit-task-modal')
+            // modal_heading.classList.add('modal-heading')
 
-            task_label.classList.add('label')
-            task_label.textContent = 'Task'
+            // task_label.classList.add('label')
+            // task_label.textContent = 'Task'
 
-            title_area.classList.add('task-title-area')
-            modal_task_title.classList.add('task-title')
-            modal_task_title.setAttribute('id', 'edit-title')
-            modal_task_title.setAttribute('required', '')
-            field_required.classList.add('field-required')
-            field_required.textContent = 'Required'
+            // title_area.classList.add('task-title-area')
+            // modal_task_title.classList.add('task-title')
+            // modal_task_title.setAttribute('id', 'edit-title')
+            // modal_task_title.setAttribute('required', '')
+            // field_required.classList.add('field-required')
+            // field_required.textContent = 'Required'
 
-            desc_label.classList.add('label')
-            desc_label.textContent = 'Description'
-            task_desc.classList.add('task-desc')
-            task_desc.setAttribute('id', 'edit-desc')
+            // desc_label.classList.add('label')
+            // desc_label.textContent = 'Description'
+            // task_desc.classList.add('task-desc')
+            // task_desc.setAttribute('id', 'edit-desc')
             
-            modal_btns.classList.add('modal-buttons')
-            accept_edit.classList.add('modal-button')
-            accept_edit.setAttribute('id', 'edit-task-accept')
-            accept_edit.setAttribute('type', 'submit')
-            accept_edit.textContent = 'Accept'
+            // modal_btns.classList.add('modal-buttons')
+            // accept_edit.classList.add('modal-button')
+            // accept_edit.setAttribute('id', 'edit-task-accept')
+            // accept_edit.setAttribute('type', 'submit')
+            // accept_edit.textContent = 'Accept'
 
-            cancel_edit.classList.add('modal-button')
-            cancel_edit.setAttribute('id', 'cancel-edit-task')
-            cancel_edit.textContent = 'Cancel'
+            // cancel_edit.classList.add('modal-button')
+            // cancel_edit.setAttribute('id', 'cancel-edit-task')
+            // cancel_edit.textContent = 'Cancel'
 
-            title_area.append(modal_task_title, field_required)
-            form.append(task_label, title_area, desc_label, task_desc)
-            modal_btns.append(accept_edit, cancel_edit)
-            dialog.append(modal_heading, form, modal_btns)
-            content.appendChild(dialog)
+            // title_area.append(modal_task_title, field_required)
+            // form.append(task_label, title_area, desc_label, task_desc)
+            // modal_btns.append(accept_edit, cancel_edit)
+            // dialog.append(modal_heading, form, modal_btns)
+            // content.appendChild(dialog)
 
-            modal_task_title.value = task.title
-            task_desc.value = task.desc
+            // modal_task_title.value = task.title
+            // task_desc.value = task.desc
 
             edit_task.addEventListener('click', () => {
-                // const dialog = document.createElement('dialog')
-                // const modal_heading = document.createElement('h2')
-                // const form = document.createElement('form')
-                // const task_label = document.createElement('label')
-                // const title_area = document.createElement('div')
-                // const task_title = document.createElement('input')
-                // const field_required = document.createElement('span')
-                // const desc_label = document.createElement('label')
-                // const task_desc = document.createElement('textarea')
-                // const modal_btns = document.createElement('div')
-                // const accept_edit = document.createElement('button')
-                // const cancel_edit = document.createElement('button')
+                const dialog = document.createElement('dialog')
+                const modal_heading = document.createElement('h2')
+                const form = document.createElement('form')
+                const task_label = document.createElement('label')
+                const title_area = document.createElement('div')
+                const edit_input = document.createElement('input')
+                const field_required = document.createElement('span')
+                const desc_label = document.createElement('label')
+                const task_desc = document.createElement('textarea')
+                const modal_btns = document.createElement('div')
+                const accept_edit = document.createElement('button')
+                const cancel_edit = document.createElement('button')
 
-                // dialog.classList.add('edit-task-modal')
-                // modal_heading.classList.add('modal-heading')
+                dialog.classList.add('edit-task-modal')
+                modal_heading.classList.add('modal-heading')
 
-                // task_label.classList.add('label')
-                // task_label.textContent = 'Task'
+                task_label.classList.add('label')
+                task_label.textContent = 'Task'
 
-                // title_area.classList.add('task-title-area')
-                // task_title.classList.add('task-title')
-                // task_title.setAttribute('id', 'edit-title')
-                // field_required.classList.add('field-required')
-                // field_required.textContent = 'Required'
+                title_area.classList.add('task-title-area')
+                edit_input.classList.add('task-title')
+                edit_input.setAttribute('id', 'edit-title')
+                edit_input.setAttribute('required', '')
+                field_required.classList.add('field-required')
+                field_required.textContent = 'Required'
 
-                // desc_label.classList.add('label')
-                // desc_label.textContent = 'Description'
-                // task_desc.classList.add('task-desc')
-                // task_desc.setAttribute('id', 'edit-desc')
+                desc_label.classList.add('label')
+                desc_label.textContent = 'Description'
+                task_desc.classList.add('task-desc')
+                task_desc.setAttribute('id', 'edit-desc')
                 
-                // modal_btns.classList.add('modal-buttons')
-                // accept_edit.classList.add('modal-button')
-                // accept_edit.setAttribute('id', 'edit-task-accept')
-                // accept_edit.textContent = 'Accept'
+                modal_btns.classList.add('modal-buttons')
+                accept_edit.classList.add('modal-button')
+                accept_edit.setAttribute('id', 'edit-task-accept')
+                accept_edit.setAttribute('type', 'submit')
+                accept_edit.textContent = 'Accept'
 
-                // cancel_edit.classList.add('modal-button')
-                // cancel_edit.setAttribute('id', 'cancel-edit-task')
-                // cancel_edit.textContent = 'Cancel'
+                cancel_edit.classList.add('modal-button')
+                cancel_edit.setAttribute('id', 'cancel-edit-task')
+                cancel_edit.textContent = 'Cancel'
 
-                // title_area.append(task_title, field_required)
-                // form.append(task_label, title_area, desc_label, task_desc)
-                // modal_btns.append(accept_edit, cancel_edit)
-                // dialog.append(modal_heading, form, modal_btns)
-                // content.appendChild(dialog)
+                edit_input.value = task.title
+                task_desc.value = task.desc
+
+                accept_edit.addEventListener('click', () => {
+                    task.title = edit_input.value
+                    if (!edit_input.value) {
+                        field_required.style.display = 'block'
+                        edit_input.style.outline = 'solid 2px #ff6200'
+                        return
+                    }
+
+                    task_title.textContent = task.title
+                    task.desc = task_desc.value
+
+                    dialog.close()
+                    overlay.style.display = 'none'
+                    dialog.remove()
+                })
+
+                cancel_edit.addEventListener('click', () => {
+                    dialog.close()
+                    overlay.style.display = 'none'
+                    dialog.remove()
+                })
+
+                title_area.append(edit_input, field_required)
+                form.append(task_label, title_area, desc_label, task_desc)
+                modal_btns.append(accept_edit, cancel_edit)
+                dialog.append(modal_heading, form, modal_btns)
+                content.appendChild(dialog)
 
                 dialog.show()
                 overlay.style.display = 'block'
 
                 // maybe put these 2 outside
                 // calling the needed elements from them
-                accept_edit.addEventListener('click', () => {
-                    task.title = modal_task_title.value
-                    task_title.textContent = task.title
-                    task.desc = task_desc.value
+                // accept_edit.addEventListener('click', () => {
+                //     task.title = modal_task_title.value
+                //     task_title.textContent = task.title
+                //     task.desc = task_desc.value
 
-                    dialog.close()
-                    overlay.style.display = 'none'
-                    // content.removeChild(dialog)
-                })
+                //     dialog.close()
+                //     overlay.style.display = 'none'
+                //     // content.removeChild(dialog)
+                // })
 
-                cancel_edit.addEventListener('click', () => {
-                    dialog.close()
-                    overlay.style.display = 'none'
-                })
+                // cancel_edit.addEventListener('click', () => {
+                //     dialog.close()
+                //     overlay.style.display = 'none'
+                // })
             })
 
             // const accept_edit = document.getElementById('edit-task-accept')
@@ -389,6 +415,8 @@ export function ModalHandler(
     cancelPro.addEventListener('click', () => {
         proModal.close()
         overlay.style.display = 'none'
+        project_name.style.outline = 'none'
+        pro_field_required.style.display = 'none' 
     })
 
     newTask.addEventListener('click', () => {
@@ -399,6 +427,8 @@ export function ModalHandler(
     cancelTask.addEventListener('click', () => {
         taskModal.close()
         overlay.style.display = 'none'
+        task_title.style.outline = 'none'
+        field_required.style.display = 'none'
         console.log('this guy fucks')
     })
 

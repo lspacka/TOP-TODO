@@ -1,4 +1,4 @@
-//  I might refactor this at some point...
+//  I might refactor this someday...
 
 //  TODO:
 //  + showProject()
@@ -18,8 +18,8 @@
 //  + fix project display
 //  - fix bug when manually clearing user projects
 //  + add title to detail if there's no detail
-//  - edit task
-//  - add tooltips to task 
+//  + edit task
+//  + add tooltips to task 
 //  - local storage
 //    - gets "called" everytime:
 //       - a task gets added/deleted
