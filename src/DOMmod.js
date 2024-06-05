@@ -1,6 +1,7 @@
 const task_detail = document.querySelector('.task-detail-modal')
 const detail_text = document.querySelector('.detail-text')
 const overlay = document.querySelector('.overlay')
+const content = document.querySelector('.content')
 const detail_btn = document.querySelector('.detail-button')
 const body = document.body
 const edit_task_modal = document.querySelector('.edit-task-modal')
@@ -109,30 +110,154 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
                 overlay.style.display = 'block'
             })
 
-            edit_task.addEventListener('click', () => {
-                edit_task.id = index
-                let current_task = tasks[edit_task.id]
-                edit_task_modal.show()
-                overlay.style.display = 'block'
-                console.log(edit_task.id)
-                console.log(current_task)
+            // make new edit modal for each task 
+            const dialog = document.createElement('dialog')
+            const modal_heading = document.createElement('h2')
+            const form = document.createElement('form')
+            const task_label = document.createElement('label')
+            const title_area = document.createElement('div')
+            const modal_task_title = document.createElement('input')
+            const field_required = document.createElement('span')
+            const desc_label = document.createElement('label')
+            const task_desc = document.createElement('textarea')
+            const modal_btns = document.createElement('div')
+            const accept_edit = document.createElement('button')
+            const cancel_edit = document.createElement('button')
 
-                edit_task_accept.addEventListener('click', (e) => {
-                    e.stopPropagation()
-    
-                    current_task.title = edit_title.value
-                    task_title.textContent = current_task.title
-                    current_task.desc = edit_desc.value
-                    edit_task_modal.close()
-                    overlay.style.display = 'none'
-                    console.log('task after edit: ', current_task)
-                })
+            dialog.classList.add('edit-task-modal')
+            modal_heading.classList.add('modal-heading')
+
+            task_label.classList.add('label')
+            task_label.textContent = 'Task'
+
+            title_area.classList.add('task-title-area')
+            modal_task_title.classList.add('task-title')
+            modal_task_title.setAttribute('id', 'edit-title')
+            modal_task_title.setAttribute('required', '')
+            field_required.classList.add('field-required')
+            field_required.textContent = 'Required'
+
+            desc_label.classList.add('label')
+            desc_label.textContent = 'Description'
+            task_desc.classList.add('task-desc')
+            task_desc.setAttribute('id', 'edit-desc')
+            
+            modal_btns.classList.add('modal-buttons')
+            accept_edit.classList.add('modal-button')
+            accept_edit.setAttribute('id', 'edit-task-accept')
+            accept_edit.setAttribute('type', 'submit')
+            accept_edit.textContent = 'Accept'
+
+            cancel_edit.classList.add('modal-button')
+            cancel_edit.setAttribute('id', 'cancel-edit-task')
+            cancel_edit.textContent = 'Cancel'
+
+            title_area.append(modal_task_title, field_required)
+            form.append(task_label, title_area, desc_label, task_desc)
+            modal_btns.append(accept_edit, cancel_edit)
+            dialog.append(modal_heading, form, modal_btns)
+            content.appendChild(dialog)
+
+            modal_task_title.value = task.title
+            task_desc.value = task.desc
+
+            edit_task.addEventListener('click', () => {
+                // const dialog = document.createElement('dialog')
+                // const modal_heading = document.createElement('h2')
+                // const form = document.createElement('form')
+                // const task_label = document.createElement('label')
+                // const title_area = document.createElement('div')
+                // const task_title = document.createElement('input')
+                // const field_required = document.createElement('span')
+                // const desc_label = document.createElement('label')
+                // const task_desc = document.createElement('textarea')
+                // const modal_btns = document.createElement('div')
+                // const accept_edit = document.createElement('button')
+                // const cancel_edit = document.createElement('button')
+
+                // dialog.classList.add('edit-task-modal')
+                // modal_heading.classList.add('modal-heading')
+
+                // task_label.classList.add('label')
+                // task_label.textContent = 'Task'
+
+                // title_area.classList.add('task-title-area')
+                // task_title.classList.add('task-title')
+                // task_title.setAttribute('id', 'edit-title')
+                // field_required.classList.add('field-required')
+                // field_required.textContent = 'Required'
+
+                // desc_label.classList.add('label')
+                // desc_label.textContent = 'Description'
+                // task_desc.classList.add('task-desc')
+                // task_desc.setAttribute('id', 'edit-desc')
                 
-                cancel_edit_task.addEventListener('click', () => {
-                    edit_task_modal.close()
+                // modal_btns.classList.add('modal-buttons')
+                // accept_edit.classList.add('modal-button')
+                // accept_edit.setAttribute('id', 'edit-task-accept')
+                // accept_edit.textContent = 'Accept'
+
+                // cancel_edit.classList.add('modal-button')
+                // cancel_edit.setAttribute('id', 'cancel-edit-task')
+                // cancel_edit.textContent = 'Cancel'
+
+                // title_area.append(task_title, field_required)
+                // form.append(task_label, title_area, desc_label, task_desc)
+                // modal_btns.append(accept_edit, cancel_edit)
+                // dialog.append(modal_heading, form, modal_btns)
+                // content.appendChild(dialog)
+
+                dialog.show()
+                overlay.style.display = 'block'
+
+                // maybe put these 2 outside
+                // calling the needed elements from them
+                accept_edit.addEventListener('click', () => {
+                    task.title = modal_task_title.value
+                    task_title.textContent = task.title
+                    task.desc = task_desc.value
+
+                    dialog.close()
+                    overlay.style.display = 'none'
+                    // content.removeChild(dialog)
+                })
+
+                cancel_edit.addEventListener('click', () => {
+                    dialog.close()
                     overlay.style.display = 'none'
                 })
             })
+
+            // const accept_edit = document.getElementById('edit-task-accept')
+            // accept_edit.addEventListener('click', () => {
+            //     console.log(index)
+            //     console.log(task)
+            // })
+
+            // edit_task.addEventListener('click', () => {
+            //     edit_task.id = index
+            //     let current_task = tasks[edit_task.id]
+            //     edit_task_modal.show()
+            //     overlay.style.display = 'block'
+            //     console.log(edit_task.id)
+            //     console.log(current_task)
+
+            //     edit_task_accept.addEventListener('click', (e) => {
+            //         e.stopPropagation()
+    
+            //         current_task.title = edit_title.value
+            //         task_title.textContent = current_task.title
+            //         current_task.desc = edit_desc.value
+            //         edit_task_modal.close()
+            //         overlay.style.display = 'none'
+            //         console.log('task after edit: ', current_task)
+            //     })
+                
+            //     cancel_edit_task.addEventListener('click', () => {
+            //         edit_task_modal.close()
+            //         overlay.style.display = 'none'
+            //     })
+            // })
 
             // edit_task_accept.addEventListener('click', (e) => {
             //     e.stopPropagation()
@@ -185,11 +310,16 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
             li.append(task_title, task_btns)
             list.appendChild(li)
         })
-        
-        tasks.forEach((task, index) => {
-            //
-        })  
     }
+    // const edit_task_btn = document.
+    // Array.from(list).forEach((li, index) => {
+    //     const edit_task_btn = document.querySelectorAll('img:nth-child(4)')
+    //     edit_task_btn.id = index
+    //     edit_task_btn.addEventListener('click', () => {
+    //         console.log('index: ', edit_task_btn.id)
+    //         console.log(li)
+    //     })
+    // })  
 }
 
 function sortDate(task, datePros, currentPro, list, li) {

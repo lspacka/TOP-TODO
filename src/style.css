@@ -204,6 +204,7 @@ button:not(.user-project-button, .delete-task-button):hover {
 
 .no-date {
   cursor:context-menu;
+  margin-right: 10px;
   /* z-index: 2; */
 }
 
@@ -223,6 +224,7 @@ button:not(.user-project-button, .delete-task-button):hover {
   margin-left: 20px;
   width: 15px;
   height: 15px;
+  transform: translateY(2px);
 }
 
 .addto-important-btn {
@@ -233,11 +235,11 @@ button:not(.user-project-button, .delete-task-button):hover {
 }
 
 .delete-task-button {
-  margin-left: 14px;
+  margin-left: 20px;
   min-width: fit-content;
-  width: 20px;
+  width: 18px;
   height: 20px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   background-color: transparent;
   color: rgb(161, 168, 176);
 }
