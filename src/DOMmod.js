@@ -95,7 +95,8 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
                 e.stopPropagation()
             })
 
-             //  change body for li if there are issues
+            //  resets the "add date" text 
+            //  change body for li if there are issues
             body.addEventListener('click', () => {         
                 if (date_input.style.visibility == 'visible' ) {
                     date_input.style.visibility = 'hidden'
@@ -108,57 +109,6 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
                 task_detail.show()
                 overlay.style.display = 'block'
             })
-
-            // make new edit modal for each task 
-            // const dialog = document.createElement('dialog')
-            // const modal_heading = document.createElement('h2')
-            // const form = document.createElement('form')
-            // const task_label = document.createElement('label')
-            // const title_area = document.createElement('div')
-            // const modal_task_title = document.createElement('input')
-            // const field_required = document.createElement('span')
-            // const desc_label = document.createElement('label')
-            // const task_desc = document.createElement('textarea')
-            // const modal_btns = document.createElement('div')
-            // const accept_edit = document.createElement('button')
-            // const cancel_edit = document.createElement('button')
-
-            // dialog.classList.add('edit-task-modal')
-            // modal_heading.classList.add('modal-heading')
-
-            // task_label.classList.add('label')
-            // task_label.textContent = 'Task'
-
-            // title_area.classList.add('task-title-area')
-            // modal_task_title.classList.add('task-title')
-            // modal_task_title.setAttribute('id', 'edit-title')
-            // modal_task_title.setAttribute('required', '')
-            // field_required.classList.add('field-required')
-            // field_required.textContent = 'Required'
-
-            // desc_label.classList.add('label')
-            // desc_label.textContent = 'Description'
-            // task_desc.classList.add('task-desc')
-            // task_desc.setAttribute('id', 'edit-desc')
-            
-            // modal_btns.classList.add('modal-buttons')
-            // accept_edit.classList.add('modal-button')
-            // accept_edit.setAttribute('id', 'edit-task-accept')
-            // accept_edit.setAttribute('type', 'submit')
-            // accept_edit.textContent = 'Accept'
-
-            // cancel_edit.classList.add('modal-button')
-            // cancel_edit.setAttribute('id', 'cancel-edit-task')
-            // cancel_edit.textContent = 'Cancel'
-
-            // title_area.append(modal_task_title, field_required)
-            // form.append(task_label, title_area, desc_label, task_desc)
-            // modal_btns.append(accept_edit, cancel_edit)
-            // dialog.append(modal_heading, form, modal_btns)
-            // content.appendChild(dialog)
-
-            // modal_task_title.value = task.title
-            // task_desc.value = task.desc
 
             edit_task.addEventListener('click', () => {
                 const dialog = document.createElement('dialog')
@@ -235,73 +185,15 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
 
                 dialog.show()
                 overlay.style.display = 'block'
-
-                // maybe put these 2 outside
-                // calling the needed elements from them
-                // accept_edit.addEventListener('click', () => {
-                //     task.title = modal_task_title.value
-                //     task_title.textContent = task.title
-                //     task.desc = task_desc.value
-
-                //     dialog.close()
-                //     overlay.style.display = 'none'
-                //     // content.removeChild(dialog)
-                // })
-
-                // cancel_edit.addEventListener('click', () => {
-                //     dialog.close()
-                //     overlay.style.display = 'none'
-                // })
             })
-
-            // const accept_edit = document.getElementById('edit-task-accept')
-            // accept_edit.addEventListener('click', () => {
-            //     console.log(index)
-            //     console.log(task)
-            // })
-
-            // edit_task.addEventListener('click', () => {
-            //     edit_task.id = index
-            //     let current_task = tasks[edit_task.id]
-            //     edit_task_modal.show()
-            //     overlay.style.display = 'block'
-            //     console.log(edit_task.id)
-            //     console.log(current_task)
-
-            //     edit_task_accept.addEventListener('click', (e) => {
-            //         e.stopPropagation()
-    
-            //         current_task.title = edit_title.value
-            //         task_title.textContent = current_task.title
-            //         current_task.desc = edit_desc.value
-            //         edit_task_modal.close()
-            //         overlay.style.display = 'none'
-            //         console.log('task after edit: ', current_task)
-            //     })
-                
-            //     cancel_edit_task.addEventListener('click', () => {
-            //         edit_task_modal.close()
-            //         overlay.style.display = 'none'
-            //     })
-            // })
-
-            // edit_task_accept.addEventListener('click', (e) => {
-            //     e.stopPropagation()
-
-            //     task.title = edit_title.value
-            //     task_title.textContent = task.title
-            //     task.desc = edit_desc.value
-            //     edit_task_modal.close()
-            //     overlay.style.display = 'none'
-            // })
-            // cancel_edit_task.addEventListener('click', () => {
-            //     edit_task_modal.close()
-            //     overlay.style.display = 'none'
-            // })
 
             imp_btn.addEventListener('click', () => {
                 task.important = task.important ? false : true
                 let task_index = importantPro.tasks.indexOf(task)
+                // how is this even working lol.
+                // Im getting the index of task 
+                // before even pushing it into the array. 
+                // fucking js... 😵 
 
                 if (task.important && !importantPro.tasks.includes(task)) {
                     imp_btn.src = star_fill
@@ -337,16 +229,7 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
             li.append(task_title, task_btns)
             list.appendChild(li)
         })
-    }
-    // const edit_task_btn = document.
-    // Array.from(list).forEach((li, index) => {
-    //     const edit_task_btn = document.querySelectorAll('img:nth-child(4)')
-    //     edit_task_btn.id = index
-    //     edit_task_btn.addEventListener('click', () => {
-    //         console.log('index: ', edit_task_btn.id)
-    //         console.log(li)
-    //     })
-    // })  
+    } 
 }
 
 function sortDate(task, datePros, currentPro, list, li) {
@@ -356,6 +239,8 @@ function sortDate(task, datePros, currentPro, list, li) {
     const year = date_comps[0]
     const month = date_comps[1] - 1
     const day = date_comps[2]
+    let today_index = today_pro.tasks.indexOf(task)
+    let week_index = week_pro.tasks.indexOf(task)
 
     const date = new Date(year, month, day)
     const today = new Date()
@@ -366,7 +251,7 @@ function sortDate(task, datePros, currentPro, list, li) {
     if (date>=week_start && date<=week_end && !week_pro.tasks.includes(task)) week_pro.tasks.push(task)
 
     if (date<week_start || date>week_end && week_pro.tasks.includes(task)) {
-        week_pro.tasks.splice(task.index, 1)
+        week_pro.tasks.splice(week_index, 1)
         week_pro == currentPro && list.removeChild(li) 
 
         week_pro.tasks.forEach((task, index) => {
@@ -387,7 +272,7 @@ function sortDate(task, datePros, currentPro, list, li) {
         date.getDate() != today.getDate() &&
         today_pro.tasks.includes(task)
     ) {
-        today_pro.tasks.splice(task.index, 1)
+        today_pro.tasks.splice(today_index, 1)
         today_pro == currentPro && list.removeChild(li)
 
         today_pro.tasks.forEach((task, index) => {
