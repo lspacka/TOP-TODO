@@ -195,6 +195,7 @@ button:not(.user-project-button, .delete-task-button):hover {
 .no-date {
   cursor:context-menu;
   margin-right: 10px;
+  font-size: 0.97rem;
   /* z-index: 2; */
 }
 
@@ -366,7 +367,7 @@ li {
   background: rgba(0, 0, 0, 0.83);
   display: none; 
   /* display: flex; */
-  /* z-index: -1; */
+  z-index: -1;
 }
 
 .field-required {

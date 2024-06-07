@@ -301,16 +301,17 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
 
             imp_btn.addEventListener('click', () => {
                 task.important = task.important ? false : true
+                let task_index = importantPro.tasks.indexOf(task)
 
                 if (task.important && !importantPro.tasks.includes(task)) {
                     imp_btn.src = star_fill
                     importantPro.tasks.push(task)
-                    task.index = importantPro.tasks.indexOf(task)
+                    // task.index = importantPro.tasks.indexOf(task)
                 }
                 
                 if (!task.important && importantPro.tasks.includes(task)) {
                     imp_btn.src = star_src
-                    importantPro.tasks.splice(task.index, 1)
+                    importantPro.tasks.splice(task_index, 1)
                     importantPro == currentPro && list.removeChild(li)
 
                     //  update indexes after deleting a task
@@ -318,7 +319,7 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
                         task.index = index
                     })
                     console.log(importantPro, currentPro)
-                    console.log(task.title, task.important, 'index: ', task.index) 
+                    console.log(task.title, task.important, 'index: ', task_index) 
                 }
             })
 
@@ -407,8 +408,8 @@ export function ModalHandler(
     overlay
 ) {
     newPro.addEventListener('click', () => {
-        overlay.style.display = 'block'
         proModal.show()
+        overlay.style.display = 'block'
         // proModal.style.display = 'block'
     })
 
