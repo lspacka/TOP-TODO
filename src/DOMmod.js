@@ -30,7 +30,7 @@ export function updateProject(list, pros) {
     list.appendChild(li)
 }
 
-export function showProject(heading, list, currentPro, importantPro, datePros) {
+export function showProject(heading, list, currentPro, importantPro, datePros, allPros) {
     list.innerHTML = ''
 
     let tasks = currentPro.tasks
@@ -87,7 +87,8 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
                 no_date.textContent = task.date
                 date_input.style.visibility = 'hidden'
 
-                sortDate(task, datePros, currentPro, list, li)
+                sortDate(task, datePros, currentPro, list, li, allPros)
+                // localStorage.setItem('allPros', JSON.stringify(allPros))
                 console.log(currentPro)
             })
 
@@ -98,7 +99,7 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
             //  resets the "add date" text 
             //  change body for li if there are issues
             body.addEventListener('click', () => {         
-                if (date_input.style.visibility == 'visible' ) {
+                if (date_input.style.visibility == 'visible') {
                     date_input.style.visibility = 'hidden'
                     // no_date.style.visibility = 'visible'
                 }
@@ -169,6 +170,8 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
                     dialog.close()
                     overlay.style.display = 'none'
                     dialog.remove()
+
+                    localStorage.setItem('allPros', JSON.stringify(allPros))
                 })
 
                 cancel_edit.addEventListener('click', () => {
@@ -189,19 +192,24 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
 
             imp_btn.addEventListener('click', () => {
                 task.important = task.important ? false : true
-                let task_index = importantPro.tasks.indexOf(task)
+                // let task_index = importantPro.tasks.indexOf(task)
+                let task_index
                 // how is this even working lol.
                 // Im getting the index of task 
                 // before even pushing it into the array. 
                 // fucking js... 😵 
+                // console.log(task_index)
 
                 if (task.important && !importantPro.tasks.includes(task)) {
                     imp_btn.src = star_fill
                     importantPro.tasks.push(task)
                     // task.index = importantPro.tasks.indexOf(task)
+
+                    // localStorage.setItem('allPros', JSON.stringify(allPros))
                 }
                 
                 if (!task.important && importantPro.tasks.includes(task)) {
+                    task_index = importantPro.tasks.indexOf(task)
                     imp_btn.src = star_src
                     importantPro.tasks.splice(task_index, 1)
                     importantPro == currentPro && list.removeChild(li)
@@ -210,9 +218,12 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
                     importantPro.tasks.forEach((task, index) => {
                         task.index = index
                     })
+
+                    // localStorage.setItem('allPros', JSON.stringify(allPros))
                     console.log(importantPro, currentPro)
                     console.log(task.title, task.important, 'index: ', task_index) 
                 }
+                localStorage.setItem('allPros', JSON.stringify(allPros))
             })
 
             del_task.addEventListener('click', () => {
@@ -222,6 +233,8 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
                 tasks.forEach((task, index) => {
                     task.index = index
                 })
+
+                localStorage.setItem('allPros', JSON.stringify(allPros))
                 console.log(currentPro)
             })
 
@@ -232,7 +245,7 @@ export function showProject(heading, list, currentPro, importantPro, datePros) {
     } 
 }
 
-function sortDate(task, datePros, currentPro, list, li) {
+function sortDate(task, datePros, currentPro, list, li, allPros) {
     const today_pro = datePros[0]
     const week_pro = datePros[1]
     const date_comps = task.date.split('-')
@@ -279,6 +292,7 @@ function sortDate(task, datePros, currentPro, list, li) {
             task.index = index
         })
     }
+    localStorage.setItem('allPros', JSON.stringify(allPros))
 }
 
 export function ModalHandler(

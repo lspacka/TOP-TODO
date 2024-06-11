@@ -89,19 +89,44 @@ const user_pros = []
 let current_pro = default_pro
 const all_pros = [default_pro, today, this_week, important]
 let pro_count = 0
+let stored_pros
 
-showProject(pro_heading, tasks_list, current_pro, date_pros)
+/////////////////////LOCAL STORAGE ////////////////////////
+
+// window.onclose = () => {
+//   localStorage.setItem('allPros', JSON.stringify(all_pros))
+// }
+
+// window.onbeforeunload = () => {
+//   // e.preventDefault()
+//   localStorage.setItem('allPros', JSON.stringify(all_pros))
+// }
+
+window.onload = () => {
+  if (localStorage.length == 0) {
+    localStorage.setItem('allPros', JSON.stringify(all_pros))
+  } else {
+    stored_pros = JSON.parse(localStorage.getItem('allPros'))
+    for (let i = 0; i < stored_pros.length; i++) {
+      if (i < 4) all_pros[i] = stored_pros[i]
+      else user_pros[i] = stored_pros[i]
+    }
+    current_pro = stored_pros[0]
+    date_pros[0] = stored_pros[1]
+    date_pros[1] = stored_pros[2]
+    showProject(pro_heading, tasks_list, current_pro, important, date_pros, stored_pros)
+    // updateProject(user_pro_list, user_pros) // showUserPros
+    console.log(stored_pros)
+  }
+}
+
+//////////////////////////////////////////////////////////
+
+// showProject(pro_heading, tasks_list, current_pro, date_pros)
 
 TEST.addEventListener('click', () => {
-  console.log('(TEST) current pro: ', current_pro)
-  let title = task_title.value
-  let desc = task_desc.value
-  let task = new Task(title, desc)
-
-  if (current_pro == important) task.important = true
-  current_pro.tasks.push(task)
-  task_modal.close()
-  showProject(pro_heading, tasks_list, current_pro, important, date_pros)
+  // console.log('stored pros: ', stored_pros)
+  console.log('local storage: ', localStorage)
 })
 
 //  brainfuck procedure for adding event listeners to dynamically added buttons in the user projects
@@ -112,7 +137,7 @@ function handleButtonClick(e) {
       if (btn_text == pro.name) current_pro = pro
   })
   console.log("Current project:", current_pro);
-  showProject(pro_heading, tasks_list, current_pro, important, date_pros)
+  showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
 }
 
 function deleteProject(list, userPros, pro) {
@@ -150,6 +175,7 @@ function deleteProject(list, userPros, pro) {
     current_pro = default_pro
   }
 
+  localStorage.setItem('allPros', JSON.stringify(all_pros))
   showProject(pro_heading, tasks_list, current_pro)
 
   console.log('current pro: ', current_pro) 
@@ -190,7 +216,9 @@ function addNewProject() {
   project_modal.close()
   overlay.style.display = 'none'
   current_pro = project  // HERE
-  showProject(pro_heading, tasks_list, current_pro, important, date_pros)
+
+  localStorage.setItem('allPros', JSON.stringify(all_pros))  
+  showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
 
   // let newButton = document.querySelector('.user-project-button:last-child')
   const last_li = document.querySelector('.project-li:last-child')
@@ -263,7 +291,9 @@ add_task.addEventListener('click', () => {
   current_pro.tasks.push(task)
   task_modal.close()
   overlay.style.display = 'none'
-  showProject(pro_heading, tasks_list, current_pro, important, date_pros) 
+
+  localStorage.setItem('allPros', JSON.stringify(all_pros))
+  showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros) 
   console.log('current project before: ', current_pro)
 })
 
@@ -271,6 +301,8 @@ clear_projects.addEventListener('click', () => {
   user_pros = []
   user_pro_list.innerHTML = ''
   current_pro = default_pro
+
+  localStorage.setItem('allPros', JSON.stringify(all_pros))
   showProject(pro_heading, tasks_list, current_pro)
   pro_count = 0
   console.log(user_pros)
@@ -279,5 +311,7 @@ clear_projects.addEventListener('click', () => {
 clear_tasks.addEventListener('click', () => {
   current_pro.tasks = []
   tasks_list.innerHTML = ''
+
+  localStorage.setItem('allPros', JSON.stringify(all_pros))
   console.log(current_pro.tasks)
 })
