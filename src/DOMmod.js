@@ -30,6 +30,23 @@ export function updateProject(list, pros) {
     list.appendChild(li)
 }
 
+// export function showUserPros(list, pros) {
+//     pros.forEach(pro => {
+//         let li = document.createElement('li')
+//         let pro_name = document.createElement('button')
+//         let del_pro = document.createElement('button')
+
+//         li.classList.add('project-li')
+//         pro_name.textContent = pro.name
+//         pro_name.setAttribute("class", "project-button user-project-button")
+//         del_pro.textContent = 'X'
+//         // del_pro.classList.add('delete-project')
+//         del_pro.setAttribute('id', 'delete-project')
+//         li.append(pro_name, del_pro)
+//         list.appendChild(li)
+//     })
+// }
+
 export function showProject(heading, list, currentPro, importantPro, datePros, allPros) {
     list.innerHTML = ''
 
@@ -194,18 +211,13 @@ export function showProject(heading, list, currentPro, importantPro, datePros, a
                 task.important = task.important ? false : true
                 // let task_index = importantPro.tasks.indexOf(task)
                 let task_index
-                // how is this even working lol.
-                // Im getting the index of task 
-                // before even pushing it into the array. 
-                // fucking js... 😵 
-                // console.log(task_index)
 
                 if (task.important && !importantPro.tasks.includes(task)) {
                     imp_btn.src = star_fill
                     importantPro.tasks.push(task)
                     // task.index = importantPro.tasks.indexOf(task)
 
-                    // localStorage.setItem('allPros', JSON.stringify(allPros))
+                    localStorage.setItem('allPros', JSON.stringify(allPros))
                 }
                 
                 if (!task.important && importantPro.tasks.includes(task)) {
@@ -219,11 +231,11 @@ export function showProject(heading, list, currentPro, importantPro, datePros, a
                         task.index = index
                     })
 
-                    // localStorage.setItem('allPros', JSON.stringify(allPros))
+                    localStorage.setItem('allPros', JSON.stringify(allPros))
                     console.log(importantPro, currentPro)
                     console.log(task.title, task.important, 'index: ', task_index) 
                 }
-                localStorage.setItem('allPros', JSON.stringify(allPros))
+                // localStorage.setItem('allPros', JSON.stringify(allPros))
             })
 
             del_task.addEventListener('click', () => {
