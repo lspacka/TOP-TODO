@@ -138,18 +138,18 @@ window.onload = () => {
 
 showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
 
-TEST.addEventListener('click', () => {
-  console.log('stored pros: ', stored_pros)
-  // console.log('local storage: ', localStorage)
-  console.log('allPros: ', JSON.parse(localStorage.getItem('allPros')))
-  // console.log('user pros: ', user_pros)
-})
+// TEST.addEventListener('click', () => {
+//   console.log('stored pros: ', stored_pros)
+//   // console.log('local storage: ', localStorage)
+//   console.log('allPros: ', JSON.parse(localStorage.getItem('allPros')))
+//   // console.log('user pros: ', user_pros)
+// })
 
-clear_ls.addEventListener('click', () => {
-  localStorage.clear()
-  console.clear()
-  stored_pros = null
-})
+// clear_ls.addEventListener('click', () => {
+//   localStorage.clear()
+//   console.clear()
+//   stored_pros = null
+// })
 
 function showUserPros(list, pros) {   // updates the DOM with the user projects from localStorage
   pros.forEach(pro => {

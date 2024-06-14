@@ -9,10 +9,10 @@ const field_required = document.querySelector('.field-required')
 const detail_btn = document.querySelector('.detail-button')
 const body = document.body
 
-const eye_src = '../resources/icons/eye.png'
-const edit_src = '../resources/icons/pencil.png'
-const star_src = '../resources/icons/star.png'
-const star_fill = '../resources/icons/star-fill.png'
+const eye_src = '/resources/icons/eye.png'
+const edit_src = '/resources/icons/pencil.png'
+const star_src = '/resources/icons/star.png'
+const star_fill = '/resources/icons/star-fill.png'
 
 export function updateProject(list, pros) {
     let li = document.createElement('li')
