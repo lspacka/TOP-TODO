@@ -131,7 +131,7 @@ window.onload = () => {
   } else {
     localStorage.setItem('allPros', JSON.stringify(all_pros))
   }
-  console.clear()
+  // console.clear()
 }
 
 //////////////////////////////////////////////////////////
