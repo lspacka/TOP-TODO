@@ -30,23 +30,6 @@ export function updateProject(list, pros) {
     list.appendChild(li)
 }
 
-// export function showUserPros(list, pros) {
-//     pros.forEach(pro => {
-//         let li = document.createElement('li')
-//         let pro_name = document.createElement('button')
-//         let del_pro = document.createElement('button')
-
-//         li.classList.add('project-li')
-//         pro_name.textContent = pro.name
-//         pro_name.setAttribute("class", "project-button user-project-button")
-//         del_pro.textContent = 'X'
-//         // del_pro.classList.add('delete-project')
-//         del_pro.setAttribute('id', 'delete-project')
-//         li.append(pro_name, del_pro)
-//         list.appendChild(li)
-//     })
-// }
-
 export function showProject(heading, list, currentPro, importantPro, datePros, allPros) {
     list.innerHTML = ''
 
@@ -209,33 +192,76 @@ export function showProject(heading, list, currentPro, importantPro, datePros, a
 
             imp_btn.addEventListener('click', () => {
                 task.important = task.important ? false : true
-                // let task_index = importantPro.tasks.indexOf(task)
+
+                console.log(task.important)
                 let task_index
-
-                if (task.important && !importantPro.tasks.includes(task)) {
+                if (task.important) {
                     imp_btn.src = star_fill
-                    importantPro.tasks.push(task)
-                    // task.index = importantPro.tasks.indexOf(task)
-
-                    localStorage.setItem('allPros', JSON.stringify(allPros))
-                }
-                
-                if (!task.important && importantPro.tasks.includes(task)) {
-                    task_index = importantPro.tasks.indexOf(task)
+                    task.stored = true
+                    console.log('task stored: ', task.stored)
+                    if (!importantPro.tasks.includes(task)) {
+                        importantPro.tasks.push(task)
+                        // task.index = importantPro.tasks.indexOf(task)
+                        // console.log(task.important)
+    
+                        console.log('important')
+                        localStorage.setItem('allPros', JSON.stringify(allPros))
+                    } else {
+                        localStorage.setItem('allPros', JSON.stringify(allPros))
+                        // return
+                    }
+                } else if (!task.important) {
                     imp_btn.src = star_src
-                    importantPro.tasks.splice(task_index, 1)
-                    importantPro == currentPro && list.removeChild(li)
 
-                    //  update indexes after deleting a task
-                    importantPro.tasks.forEach((task, index) => {
-                        task.index = index
-                    })
-
-                    localStorage.setItem('allPros', JSON.stringify(allPros))
-                    console.log(importantPro, currentPro)
-                    console.log(task.title, task.important, 'index: ', task_index) 
+                    if (importantPro.tasks.includes(task) || task.stored) {
+                        task_index = importantPro.tasks.indexOf(task)
+                        importantPro.tasks.splice(task_index, 1)
+                        importantPro == currentPro && list.removeChild(li)
+    
+                        //  update indexes after deleting a task
+                        importantPro.tasks.forEach((task, index) => {
+                            task.index = index
+                        })
+    
+                        console.log('not important')
+                        localStorage.setItem('allPros', JSON.stringify(allPros))
+                        // console.log(importantPro, currentPro)
+                        // console.log(task.title, task.important, 'index: ', task_index)
+                    } else {
+                        localStorage.setItem('allPros', JSON.stringify(allPros))
+                        // return
+                    }
+                    // localStorage.setItem('allPros', JSON.stringify(allPros))
+                    console.log('working across states')
                 }
                 // localStorage.setItem('allPros', JSON.stringify(allPros))
+                
+
+                // if (task.important && !importantPro.tasks.includes(task)) {
+                //     imp_btn.src = star_fill
+                //     importantPro.tasks.push(task)
+                //     // task.index = importantPro.tasks.indexOf(task)
+                //     // console.log(task.important)
+
+                //     localStorage.setItem('allPros', JSON.stringify(allPros))
+                // }
+                
+                // if (!task.important && importantPro.tasks.includes(task)) {
+                //     task_index = importantPro.tasks.indexOf(task)
+                //     imp_btn.src = star_src
+                //     importantPro.tasks.splice(task_index, 1)
+                //     importantPro == currentPro && list.removeChild(li)
+
+                //     //  update indexes after deleting a task
+                //     importantPro.tasks.forEach((task, index) => {
+                //         task.index = index
+                //     })
+
+                //     localStorage.setItem('allPros', JSON.stringify(allPros))
+                //     // console.log(importantPro, currentPro)
+                //     // console.log(task.title, task.important, 'index: ', task_index) 
+                // }
+
             })
 
             del_task.addEventListener('click', () => {

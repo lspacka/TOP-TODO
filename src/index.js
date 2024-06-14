@@ -20,15 +20,15 @@
 //  + add title to detail if there's no detail
 //  + edit task
 //  + add tooltips to task 
-//  - local storage
+//  + local storage
 //    + gets "called" everytime:
 //       + a task gets added/deleted
 //       + a task changes "state" (date, important)
 //       + a project gets added/deleted
 //    + it stores array with all the projects
-//    - it retrieves the data and sets it as a default on the projects when loading the page (I think?)
-//      - add event listeners in project buttons
-//      - fix important project wackyness 
+//    + it retrieves the data and sets it as a default on the projects when loading the page (I think?)
+//      + add event listeners in project buttons
+//      + fix important project wackyness 
 //    - it places the lotion in the basket 💀
 
 import './style.css'
@@ -61,12 +61,14 @@ const overlay = document.querySelector('.overlay')
 const field_required = document.querySelector('.field-required')
 const pro_field_required = document.querySelector('.pro-field-required')
 const TEST = document.querySelector('.test-button')
+const clear_ls = document.querySelector('.clear-ls')
 
 class Task {
   constructor(title, desc) {
     this.title = title
     this.desc = desc
     this.important = false
+    this.stored = false
     this.date
     this.pro  // ?
     this.index
@@ -84,7 +86,7 @@ class Project {
 const default_pro = new Project('Tasks')
 const today = new Project('Today')
 const this_week = new Project('This Week')
-const important = new Project('Important')
+let important = new Project('Important')
 
 const date_pros = [today, this_week]
 const user_pros = []
@@ -95,61 +97,58 @@ let pro_count = 0
 
 /////////////////////LOCAL STORAGE ////////////////////////
 
-// window.onclose = () => {
-//   localStorage.setItem('allPros', JSON.stringify(all_pros))
-// }
-
-// window.onbeforeunload = () => {
-//   // e.preventDefault()
-//   localStorage.setItem('allPros', JSON.stringify(all_pros))
-// }
-
-// window.onload = () => {
-//   if (localStorage.length == 0) {
-//     localStorage.setItem('allPros', JSON.stringify(all_pros))
-//   } else {
-//     let stored_pros = JSON.parse(localStorage.getItem('allPros'))
-//     for (let i = 0; i < stored_pros.length; i++) {
-//       if (i < 4) all_pros[i] = stored_pros[i]
-//       else user_pros[i] = stored_pros[i]
-//     }
-//     current_pro = stored_pros[0]
-//     date_pros[0] = stored_pros[1]
-//     date_pros[1] = stored_pros[2]
-//     // showUserPros(user_pro_list, user_pros) 
-//     showProject(pro_heading, tasks_list, current_pro, important, date_pros, stored_pros)
-//     console.log('user pros: ', user_pros)
-//   }
-// }
 let stored_pros = null
 window.onload = () => {
   
   stored_pros = localStorage.getItem('allPros')
   if (stored_pros) {
     stored_pros = JSON.parse(localStorage.getItem('allPros'))
+
+    // stored_pros.forEach(pro => {
+    //   pro.tasks.forEach(task => {
+    //     task.stored = true
+    //   })
+    // })
+
     for (let i = 0; i < stored_pros.length; i++) {
-      if (i < 4) all_pros[i] = stored_pros[i]
-      else user_pros[i-4] = stored_pros[i] 
+      if (i < 4) {
+        all_pros[i] = stored_pros[i] 
+      }
+      else {
+        user_pros[i-4] = stored_pros[i]
+        all_pros[i] = stored_pros[i]
+      } 
     }
-    current_pro = stored_pros[0]
-    date_pros[0] = stored_pros[1]
-    date_pros[1] = stored_pros[2]
-    showUserPros(user_pro_list, user_pros) // why is this messing with star btns functioning?
-    showProject(pro_heading, tasks_list, current_pro, important, date_pros, stored_pros)
+
+    current_pro = all_pros[0]
+    date_pros[0] = all_pros[1]
+    date_pros[1] = all_pros[2]
+    important = all_pros[3]
+
+    showUserPros(user_pro_list, user_pros) 
+    showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
     console.log('user pros: ', user_pros)
   } else {
     localStorage.setItem('allPros', JSON.stringify(all_pros))
   }
+  console.clear()
 }
 
 //////////////////////////////////////////////////////////
 
-// showProject(pro_heading, tasks_list, current_pro, date_pros)
+showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
 
 TEST.addEventListener('click', () => {
-  // console.log('stored pros: ', stored_pros)
-  console.log('local storage: ', localStorage)
-  console.log('user pros: ', user_pros)
+  console.log('stored pros: ', stored_pros)
+  // console.log('local storage: ', localStorage)
+  console.log('allPros: ', JSON.parse(localStorage.getItem('allPros')))
+  // console.log('user pros: ', user_pros)
+})
+
+clear_ls.addEventListener('click', () => {
+  localStorage.clear()
+  console.clear()
+  stored_pros = null
 })
 
 function showUserPros(list, pros) {   // updates the DOM with the user projects from localStorage
@@ -164,8 +163,9 @@ function showUserPros(list, pros) {   // updates the DOM with the user projects 
       pro_name.addEventListener('click', (e) => {
         let btn_text = e.target.textContent
         if (btn_text == pro.name) current_pro = pro
-        // showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
-        showProject(pro_heading, tasks_list, current_pro, important)
+        showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
+        // localStorage.setItem('allPros', JSON.stringify(all_pros))
+        console.log('current pro: ', current_pro)
       })
 
       del_pro.textContent = 'X'
@@ -177,6 +177,7 @@ function showUserPros(list, pros) {   // updates the DOM with the user projects 
       list.appendChild(li)
   })
 }
+
 
 //  brainfuck procedure for adding event listeners to dynamically added buttons in the user projects
 function handleButtonClick(e) {
@@ -225,7 +226,8 @@ function deleteProject(list, userPros, pro) {
   }
 
   localStorage.setItem('allPros', JSON.stringify(all_pros))
-  showProject(pro_heading, tasks_list, current_pro)
+  // showProject(pro_heading, tasks_list, current_pro)
+  showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
 
   console.log('current pro: ', current_pro) 
   console.log(userPros)
@@ -266,7 +268,7 @@ function addNewProject() {
   overlay.style.display = 'none'
   current_pro = project  // HERE
 
-  // localStorage.setItem('allPros', JSON.stringify(all_pros))  
+  localStorage.setItem('allPros', JSON.stringify(all_pros))  
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
 
   // let newButton = document.querySelector('.user-project-button:last-child')
@@ -283,7 +285,7 @@ function addNewProject() {
   // let newDelete = document.querySelector('')
   // console.log(all_pros)
 
-  localStorage.setItem('allPros', JSON.stringify(all_pros))  
+  // localStorage.setItem('allPros', JSON.stringify(all_pros))  
   console.log(user_pros)
 }
 
@@ -297,7 +299,8 @@ def_pro_btns.forEach(btn => {
       if (btn_text == pro.name) current_pro = pro
     })
     console.log("Current project:", current_pro)
-    showProject(pro_heading, tasks_list, current_pro, important, date_pros)
+    // showProject(pro_heading, tasks_list, current_pro, important, date_pros)
+    showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
   })
 })
 
@@ -354,7 +357,8 @@ clear_projects.addEventListener('click', () => {
   current_pro = default_pro
 
   localStorage.setItem('allPros', JSON.stringify(all_pros))
-  showProject(pro_heading, tasks_list, current_pro)
+  // showProject(pro_heading, tasks_list, current_pro)
+  showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
   pro_count = 0
   console.log(user_pros)
 })
