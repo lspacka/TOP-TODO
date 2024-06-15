@@ -1,36 +1,5 @@
 //  I might refactor this someday...
 
-//  TODO:
-//  + showProject()
-//    + update heading
-//    + forEach task => <li>task.title<button class="task-detail"><li>
-//  + delete task
-//  + task detail modal. div.textContent = task.desc + close button
-//  + add task to important (fix bug removing task)
-//  + fix bug in delete task
-//  + add date to task
-//  + remove task from date projects if date input doesnt match either one of them
-//  + check delete task, important from date pros, thoroughly
-//  + make new user project current one
-//  + delete all tasks in a project
-//  + delete all projects
-//  + delete project
-//  + fix project display
-//  - fix bug when manually clearing user projects
-//  + add title to detail if there's no detail
-//  + edit task
-//  + add tooltips to task 
-//  + local storage
-//    + gets "called" everytime:
-//       + a task gets added/deleted
-//       + a task changes "state" (date, important)
-//       + a project gets added/deleted
-//    + it stores array with all the projects
-//    + it retrieves the data and sets it as a default on the projects when loading the page (I think?)
-//      + add event listeners in project buttons
-//      + fix important project wackyness 
-//    - it places the lotion in the basket 💀
-
 import './style.css'
 import { ModalHandler, updateProject, showProject } from './DOMmod.js'
 
@@ -44,7 +13,7 @@ const add_project = document.getElementById('add-project')
 const cancel_project = document.getElementById('cancel-project')
 const project_modal = document.querySelector('.project-modal')
 const project_name = document.querySelector('.project-name')
-const pro_heading = document.querySelector('.project-header')  // 2DOM
+const pro_heading = document.querySelector('.project-header') 
 const new_task = document.querySelector('.new-task-btn')
 const task_modal = document.querySelector('.task-modal')
 const task_title = document.querySelector('.task-title')
@@ -70,7 +39,6 @@ class Task {
     this.important = false
     this.stored = false
     this.date
-    this.pro  // ?
     this.index
   }
 }
@@ -93,7 +61,6 @@ const user_pros = []
 let current_pro = default_pro
 const all_pros = [default_pro, today, this_week, important]
 let pro_count = 0
-// let stored_pros
 
 /////////////////////LOCAL STORAGE ////////////////////////
 
@@ -127,31 +94,17 @@ window.onload = () => {
 
     showUserPros(user_pro_list, user_pros) 
     showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
-    console.log('user pros: ', user_pros)
   } else {
     localStorage.setItem('allPros', JSON.stringify(all_pros))
   }
-  // console.clear()
 }
 
 //////////////////////////////////////////////////////////
 
 showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
 
-// TEST.addEventListener('click', () => {
-//   console.log('stored pros: ', stored_pros)
-//   // console.log('local storage: ', localStorage)
-//   console.log('allPros: ', JSON.parse(localStorage.getItem('allPros')))
-//   // console.log('user pros: ', user_pros)
-// })
-
-// clear_ls.addEventListener('click', () => {
-//   localStorage.clear()
-//   console.clear()
-//   stored_pros = null
-// })
-
-function showUserPros(list, pros) {   // updates the DOM with the user projects from localStorage
+// updates the DOM with the user projects from localStorage
+function showUserPros(list, pros) {   
   pros.forEach(pro => {
       let li = document.createElement('li')
       let pro_name = document.createElement('button')
@@ -164,12 +117,10 @@ function showUserPros(list, pros) {   // updates the DOM with the user projects 
         let btn_text = e.target.textContent
         if (btn_text == pro.name) current_pro = pro
         showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
-        // localStorage.setItem('allPros', JSON.stringify(all_pros))
         console.log('current pro: ', current_pro)
       })
 
       del_pro.textContent = 'X'
-      // del_pro.classList.add('delete-project')
       del_pro.setAttribute('id', 'delete-project')
       deleteProListener(del_pro, list, user_pros, pro)
 
@@ -178,15 +129,13 @@ function showUserPros(list, pros) {   // updates the DOM with the user projects 
   })
 }
 
-
-//  brainfuck procedure for adding event listeners to dynamically added buttons in the user projects
+//  brainfuck procedure for adding event listeners to dynamically added user projects
 function handleButtonClick(e) {
   let btn_text = e.target.textContent
 
   all_pros.forEach(pro => {
       if (btn_text == pro.name) current_pro = pro
   })
-  // console.log("Current project:", current_pro);
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
 }
 
@@ -200,23 +149,6 @@ function deleteProject(list, userPros, pro) {
     pro_count--
   })
 
-  // attempt to fix that project display bug
-  // if (!userPros.includes(current_pro)) {
-  //   // current_pro = current_pro
-  //   return
-  // }
-
-  // if (userPros.includes(current_pro)) {
-  //   if (userPros[pro.index]) {
-  //     current_pro = userPros[pro.index]
-  //   } else if (userPros[pro.index - 1]) {
-  //     current_pro = userPros[pro.index - 1]
-  //   } else {
-  //     current_pro = default_pro
-  //   }
-  //   showProject(pro_heading, tasks_list, current_pro)
-  // }
-
   if (userPros[pro.index]) {
     current_pro = userPros[pro.index]
   } else if (userPros[pro.index - 1]) {
@@ -226,13 +158,7 @@ function deleteProject(list, userPros, pro) {
   }
 
   localStorage.setItem('allPros', JSON.stringify(all_pros))
-  // showProject(pro_heading, tasks_list, current_pro)
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
-
-  console.log('current pro: ', current_pro) 
-  console.log(userPros)
-  console.log(list)
-  // console.log('this index: ', pro.index)
 }
 
 function addButtonClickListener(button) {
@@ -266,12 +192,11 @@ function addNewProject() {
   updateProject(user_pro_list, user_pros)
   project_modal.close()
   overlay.style.display = 'none'
-  current_pro = project  // HERE
+  current_pro = project  
 
   localStorage.setItem('allPros', JSON.stringify(all_pros))  
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
 
-  // let newButton = document.querySelector('.user-project-button:last-child')
   const last_li = document.querySelector('.project-li:last-child')
   const parent_list = last_li.parentNode
   let buttons = last_li.querySelectorAll('button')
@@ -280,16 +205,9 @@ function addNewProject() {
 
   if (pro_name) addButtonClickListener(pro_name)
   if (del_pro) deleteProListener(del_pro, parent_list, user_pros, project)
-
-
-  // let newDelete = document.querySelector('')
-  // console.log(all_pros)
-
-  // localStorage.setItem('allPros', JSON.stringify(all_pros))  
-  console.log(user_pros)
 }
 
-add_project.addEventListener('click', addNewProject) //!
+add_project.addEventListener('click', addNewProject) 
 
 //  Event listeners for the default projects
 def_pro_btns.forEach(btn => {
@@ -299,7 +217,6 @@ def_pro_btns.forEach(btn => {
       if (btn_text == pro.name) current_pro = pro
     })
     console.log("Current project:", current_pro)
-    // showProject(pro_heading, tasks_list, current_pro, important, date_pros)
     showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
   })
 })
@@ -348,7 +265,6 @@ add_task.addEventListener('click', () => {
 
   localStorage.setItem('allPros', JSON.stringify(all_pros))
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros) 
-  console.log('current project before: ', current_pro)
 })
 
 clear_projects.addEventListener('click', () => {
@@ -357,16 +273,12 @@ clear_projects.addEventListener('click', () => {
   current_pro = default_pro
 
   localStorage.setItem('allPros', JSON.stringify(all_pros))
-  // showProject(pro_heading, tasks_list, current_pro)
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
   pro_count = 0
-  console.log(user_pros)
 })
 
 clear_tasks.addEventListener('click', () => {
   current_pro.tasks = []
   tasks_list.innerHTML = ''
-
   localStorage.setItem('allPros', JSON.stringify(all_pros))
-  console.log(current_pro.tasks)
 })

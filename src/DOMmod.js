@@ -9,10 +9,10 @@ const field_required = document.querySelector('.field-required')
 const detail_btn = document.querySelector('.detail-button')
 const body = document.body
 
-const eye_src = '/resources/icons/eye.png'
-const edit_src = '/resources/icons/pencil.png'
-const star_src = '/resources/icons/star.png'
-const star_fill = '/resources/icons/star-fill.png'
+import eye_src from '/resources/icons/eye.png'
+import edit_src from '/resources/icons/pencil.png'
+import star_src from '/resources/icons/star.png'
+import star_fill from '/resources/icons/star-fill.png'
 
 export function updateProject(list, pros) {
     let li = document.createElement('li')
@@ -79,7 +79,6 @@ export function showProject(heading, list, currentPro, importantPro, datePros, a
             no_date.addEventListener('click', (e) => {
                 e.stopPropagation()
                 date_input.style.visibility = 'visible'
-                // no_date.style.visibility = 'hidden'
             })
 
             date_input.addEventListener('change', () => {
@@ -101,7 +100,6 @@ export function showProject(heading, list, currentPro, importantPro, datePros, a
             body.addEventListener('click', () => {         
                 if (date_input.style.visibility == 'visible') {
                     date_input.style.visibility = 'hidden'
-                    // no_date.style.visibility = 'visible'
                 }
             })
 
@@ -193,22 +191,16 @@ export function showProject(heading, list, currentPro, importantPro, datePros, a
             imp_btn.addEventListener('click', () => {
                 task.important = task.important ? false : true
 
-                console.log(task.important)
                 let task_index
                 if (task.important) {
                     imp_btn.src = star_fill
                     task.stored = true
-                    console.log('task stored: ', task.stored)
+
                     if (!importantPro.tasks.includes(task)) {
                         importantPro.tasks.push(task)
-                        // task.index = importantPro.tasks.indexOf(task)
-                        // console.log(task.important)
-    
-                        console.log('important')
                         localStorage.setItem('allPros', JSON.stringify(allPros))
                     } else {
                         localStorage.setItem('allPros', JSON.stringify(allPros))
-                        // return
                     }
                 } else if (!task.important) {
                     imp_btn.src = star_src
@@ -222,58 +214,24 @@ export function showProject(heading, list, currentPro, importantPro, datePros, a
                         importantPro.tasks.forEach((task, index) => {
                             task.index = index
                         })
-    
-                        console.log('not important')
+
                         localStorage.setItem('allPros', JSON.stringify(allPros))
-                        // console.log(importantPro, currentPro)
-                        // console.log(task.title, task.important, 'index: ', task_index)
                     } else {
                         localStorage.setItem('allPros', JSON.stringify(allPros))
-                        // return
                     }
-                    // localStorage.setItem('allPros', JSON.stringify(allPros))
-                    console.log('working across states')
                 }
-                // localStorage.setItem('allPros', JSON.stringify(allPros))
-                
-
-                // if (task.important && !importantPro.tasks.includes(task)) {
-                //     imp_btn.src = star_fill
-                //     importantPro.tasks.push(task)
-                //     // task.index = importantPro.tasks.indexOf(task)
-                //     // console.log(task.important)
-
-                //     localStorage.setItem('allPros', JSON.stringify(allPros))
-                // }
-                
-                // if (!task.important && importantPro.tasks.includes(task)) {
-                //     task_index = importantPro.tasks.indexOf(task)
-                //     imp_btn.src = star_src
-                //     importantPro.tasks.splice(task_index, 1)
-                //     importantPro == currentPro && list.removeChild(li)
-
-                //     //  update indexes after deleting a task
-                //     importantPro.tasks.forEach((task, index) => {
-                //         task.index = index
-                //     })
-
-                //     localStorage.setItem('allPros', JSON.stringify(allPros))
-                //     // console.log(importantPro, currentPro)
-                //     // console.log(task.title, task.important, 'index: ', task_index) 
-                // }
-
             })
 
             del_task.addEventListener('click', () => {
                 tasks.splice(task.index, 1)
                 list.removeChild(li)
+                if (currentPro==importantPro && task.important) task.important = false
 
                 tasks.forEach((task, index) => {
                     task.index = index
                 })
 
                 localStorage.setItem('allPros', JSON.stringify(allPros))
-                console.log(currentPro)
             })
 
             task_btns.append(no_date, date_input, detail, edit_task, imp_btn, del_task)
@@ -347,7 +305,6 @@ export function ModalHandler(
     newPro.addEventListener('click', () => {
         proModal.show()
         overlay.style.display = 'block'
-        // proModal.style.display = 'block'
     })
 
     cancelPro.addEventListener('click', () => {
@@ -367,17 +324,10 @@ export function ModalHandler(
         overlay.style.display = 'none'
         task_title.style.outline = 'none'
         field_required.style.display = 'none'
-        console.log('this guy fucks')
     })
 
     closeDetail.addEventListener('click', () => {
         detailModal.close()
         overlay.style.display = 'none'
     })
-
-    // detail_btn.addEventListener('click', () => {
-    //     detail_text.textContent = task.desc
-    //     detailModal.show()
-    //     overlay.style.display = 'block'
-    // })
 }

@@ -1,5 +1,6 @@
 /* #DBF3F1 */
-/* this code got out of hand before I even noticed. prolly the messiest css I've ever written. w/e, couldnt be bothered tbh... */
+/* this code got out of hand before I even noticed. */
+/* prolly the messiest css I've ever written. w/e, couldnt be bothered tbh... */
 /* might clean it up someday */
 
 @font-face {
@@ -84,7 +85,7 @@ label {
   min-width: fit-content;
   width: 25px;
   height: fit-content;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   /* background-color: red; */
   justify-self: end;
   border-radius: 0;
@@ -181,7 +182,7 @@ button:not(.user-project-button, .delete-task-button):hover {
 }
 
 .tasks-list > li:hover {
-  border-color: #8bcdc8;
+  border-color: #DBF3F1;
 }
 
 .task-buttons {
@@ -230,7 +231,7 @@ button:not(.user-project-button, .delete-task-button):hover {
   min-width: fit-content;
   width: 18px;
   height: 20px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   background-color: transparent;
   color: rgb(161, 168, 176);
 }
@@ -409,7 +410,7 @@ li {
 .clear-tasks {
   font-size: 0.7rem;
   min-width: 75px;
-  height: 35px;
+  height: 25px;
   position: relative;
 }
 
@@ -424,7 +425,7 @@ li {
 } */
 
 .clear-tasks  {
-  margin-left: 30px;
+  margin-left: 58px;
 } 
 
 .close-detail {
