@@ -28,6 +28,12 @@ header {
   margin-top: 1rem;
   display: flex;
   align-items: end;
+  padding: 10px 0 10px 27px;
+}
+
+a {
+  text-decoration: none;
+  color: #DBF3F1;
 }
 
 label {
