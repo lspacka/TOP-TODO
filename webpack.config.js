@@ -32,7 +32,7 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: './src/index.html',
       // inject: 'head',
-      scriptLoading: 'defer',
+      // scriptLoading: 'defer',
     })
   ]
 }
