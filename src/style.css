@@ -16,6 +16,7 @@
 
 body {
   background-color: rgb(19, 30, 33);
+  /* background-color: red; */
   font-family: 'courier';
   color: lightcyan;
   /* height: 100vh; */
@@ -185,6 +186,7 @@ button:not(.user-project-button, .delete-task-button):hover {
   width: 100%;
   overflow: hidden;
   position: relative;
+  transition: ease-in .2s;
 }
 
 .tasks-list > li:hover {
@@ -418,6 +420,15 @@ li {
   min-width: 75px;
   height: 25px;
   position: relative;
+  
+}
+
+.new-task-btn,
+.clear-tasks,
+.project-button,
+.add-project,
+.clear-projects {
+  transition: ease-in .3s;
 }
 
 .heading-buttons {

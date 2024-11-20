@@ -1,4 +1,4 @@
-## [The Odin Project - TODO List](https://www.theodinproject.com/lessons/node-path-javascript-todo-list)
+## [The Odin Project - TODO List App](https://www.theodinproject.com/lessons/node-path-javascript-todo-list)
 
 [Live Site](https://lspacka.github.io/TOP-TODO/)
 

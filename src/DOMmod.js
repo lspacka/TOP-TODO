@@ -75,6 +75,7 @@ export function showProject(heading, list, currentPro, importantPro, datePros, a
 
             del_task.classList.add('delete-task-button')
             del_task.textContent = 'X'
+            del_task.setAttribute('title', 'Delete Task')
 
             no_date.addEventListener('click', (e) => {
                 e.stopPropagation()
@@ -95,8 +96,8 @@ export function showProject(heading, list, currentPro, importantPro, datePros, a
                 e.stopPropagation()
             })
 
-            //  resets the "add date" text 
-            //  change body for li if there are issues
+            // resets the "add date" text 
+            // change body for li if there are issues
             body.addEventListener('click', () => {         
                 if (date_input.style.visibility == 'visible') {
                     date_input.style.visibility = 'hidden'
@@ -210,7 +211,7 @@ export function showProject(heading, list, currentPro, importantPro, datePros, a
                         importantPro.tasks.splice(task_index, 1)
                         importantPro == currentPro && list.removeChild(li)
     
-                        //  update indexes after deleting a task
+                        // update indexes after deleting a task
                         importantPro.tasks.forEach((task, index) => {
                             task.index = index
                         })
@@ -257,7 +258,8 @@ function sortDate(task, datePros, currentPro, list, li, allPros) {
     const week_end = new Date(today.getFullYear(), today.getMonth(), today.getDate()+(6-today.getDay()))
 
 
-    if (date>=week_start && date<=week_end && !week_pro.tasks.includes(task)) week_pro.tasks.push(task)
+    if (date>=week_start && date<=week_end && !week_pro.tasks.includes(task)) 
+        week_pro.tasks.push(task)
 
     if (date<week_start || date>week_end && week_pro.tasks.includes(task)) {
         week_pro.tasks.splice(week_index, 1)

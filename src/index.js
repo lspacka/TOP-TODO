@@ -1,4 +1,4 @@
-//  I might refactor this someday...
+// I might refactor this someday...
 
 import './style.css'
 import { ModalHandler, updateProject, showProject } from './DOMmod.js'
@@ -57,12 +57,12 @@ const this_week = new Project('This Week')
 let important = new Project('Important')
 
 const date_pros = [today, this_week]
-const user_pros = []
+let user_pros = []
 let current_pro = default_pro
 const all_pros = [default_pro, today, this_week, important]
 let pro_count = 0
 
-/////////////////////LOCAL STORAGE ////////////////////////
+///////////////////// LOCAL STORAGE ////////////////////////
 
 let stored_pros = null
 window.onload = () => {
@@ -80,8 +80,7 @@ window.onload = () => {
     for (let i = 0; i < stored_pros.length; i++) {
       if (i < 4) {
         all_pros[i] = stored_pros[i] 
-      }
-      else {
+      } else {
         user_pros[i-4] = stored_pros[i]
         all_pros[i] = stored_pros[i]
       } 
@@ -129,7 +128,7 @@ function showUserPros(list, pros) {
   })
 }
 
-//  brainfuck procedure for adding event listeners to dynamically added user projects
+// brainfuck procedure for adding event listeners to dynamically added user projects
 function handleButtonClick(e) {
   let btn_text = e.target.textContent
 
@@ -174,6 +173,8 @@ function deleteProListener(button, list, userPros, pro) {
 user_pro_btns.forEach(btn => {  
   addButtonClickListener(btn)
 });
+
+////////////////////////////////////////////////////////////////////////
 
 function addNewProject() {
   let name = project_name.value
