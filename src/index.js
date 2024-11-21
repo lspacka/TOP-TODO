@@ -99,10 +99,15 @@ window.onload = () => {
     localStorage.setItem('allPros', JSON.stringify(all_pros))
   }
 
+  console.log(`user pro count on load: ${pro_count}`)
   console.log('user pros on load: ', user_pros)
 }
 
 //////////////////////////////////////////////////////////
+
+nuke_ls.addEventListener('click', () => {
+  localStorage.clear()
+})
 
 showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
 
@@ -164,6 +169,8 @@ function deleteProject(list, userPros, pro) {
   } else {
     current_pro = default_pro
   }
+
+  pro_count = user_pros.length
 
   localStorage.setItem('allPros', JSON.stringify(all_pros))
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
