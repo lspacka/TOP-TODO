@@ -7,6 +7,9 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  // optimization: {
+  //   runtimeChunk: 'single',
+  // },
   module: {
     rules: [
       {
@@ -32,6 +35,9 @@ module.exports = {
     ],
   },
   devtool: 'inline-source-map',
+  devServer: {
+    static: './dist',
+  },
   plugins: [
     new HTMLWebpackPlugin({
       template: './src/index.html',

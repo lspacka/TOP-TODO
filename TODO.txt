@@ -2,9 +2,7 @@ BUGS:
 
 - fix local storage not updating after deleting a project. also, just noticed a weird bug 
   where its not deleting the last one(s), but after deleting the first one, then it works normally.
-
 - the new task modal auto filling. fix it by emptying it only if its a new project
-
 + fix clear all pros
-
 - update local storage when closing, also set a currenPro item to show the page on loading as it was when it was closed
+- add wojak pic

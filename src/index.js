@@ -5,6 +5,7 @@ import { ModalHandler, updateProject, showProject } from './DOMmod.js'
 
 const pro_buttons = document.querySelectorAll('.project-button')
 const def_pro_btns = document.querySelectorAll('.default-project-button')
+
 const user_pro_btns = document.querySelectorAll('.user-project-button')
 const user_section = document.querySelector('.user-projects') 
 const user_pro_list = document.querySelector('.user-projects-list')
@@ -13,7 +14,8 @@ const add_project = document.getElementById('add-project')
 const cancel_project = document.getElementById('cancel-project')
 const project_modal = document.querySelector('.project-modal')
 const project_name = document.querySelector('.project-name')
-const pro_heading = document.querySelector('.project-header') 
+const pro_heading = document.querySelector('.project-header')
+
 const new_task = document.querySelector('.new-task-btn')
 const task_modal = document.querySelector('.task-modal')
 const task_title = document.querySelector('.task-title')
@@ -22,6 +24,7 @@ const add_task = document.getElementById('add-task')
 const cancel_task = document.getElementById('cancel-task')
 const pro_display = document.querySelector('.project-display')
 const tasks_list = document.querySelector('.tasks-list')
+
 const task_detail = document.querySelector('.task-detail-modal')
 const close_detail = document.querySelector('.close-detail')
 const clear_projects = document.querySelector('.clear-projects')
@@ -30,7 +33,7 @@ const overlay = document.querySelector('.overlay')
 const field_required = document.querySelector('.field-required')
 const pro_field_required = document.querySelector('.pro-field-required')
 const TEST = document.querySelector('.test-button')
-const clear_ls = document.querySelector('.clear-ls')
+const nuke_ls = document.querySelector('.clear-ls')
 
 class Task {
   constructor(title, desc) {
@@ -66,7 +69,6 @@ let pro_count = 0
 
 let stored_pros = null
 window.onload = () => {
-  
   stored_pros = localStorage.getItem('allPros')
   if (stored_pros) {
     stored_pros = JSON.parse(localStorage.getItem('allPros'))
@@ -81,7 +83,7 @@ window.onload = () => {
       if (i < 4) {
         all_pros[i] = stored_pros[i] 
       } else {
-        user_pros[i-4] = stored_pros[i]
+        user_pros[i-4] = stored_pros[i]  // ?
         all_pros[i] = stored_pros[i]
       } 
     }
@@ -96,6 +98,8 @@ window.onload = () => {
   } else {
     localStorage.setItem('allPros', JSON.stringify(all_pros))
   }
+
+  console.log('user pros on load: ', user_pros)
 }
 
 //////////////////////////////////////////////////////////
@@ -104,10 +108,13 @@ showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros
 
 // updates the DOM with the user projects from localStorage
 function showUserPros(list, pros) {   
-  pros.forEach(pro => {
+  pros.forEach((pro, index)=> {
       let li = document.createElement('li')
       let pro_name = document.createElement('button')
       let del_pro = document.createElement('button')
+
+      pro.index = index
+      pro_count = pros.length
 
       li.classList.add('project-li')
       pro_name.textContent = pro.name
@@ -117,6 +124,7 @@ function showUserPros(list, pros) {
         if (btn_text == pro.name) current_pro = pro
         showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
         console.log('current pro: ', current_pro)
+        console.log(`pro index: ${pro.index}`)
       })
 
       del_pro.textContent = 'X'
@@ -139,6 +147,7 @@ function handleButtonClick(e) {
 }
 
 function deleteProject(list, userPros, pro) {
+  console.log('user pros after delete: ', user_pros)
   const li = list.children[pro.index]
 
   list.removeChild(li)
@@ -206,6 +215,8 @@ function addNewProject() {
 
   if (pro_name) addButtonClickListener(pro_name)
   if (del_pro) deleteProListener(del_pro, parent_list, user_pros, project)
+
+  console.log('user pros: ', user_pros)
 }
 
 add_project.addEventListener('click', addNewProject) 
@@ -276,6 +287,7 @@ clear_projects.addEventListener('click', () => {
   localStorage.setItem('allPros', JSON.stringify(all_pros))
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
   pro_count = 0
+  console.log('user pros after clear all: ', user_pros)
 })
 
 clear_tasks.addEventListener('click', () => {
