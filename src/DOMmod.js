@@ -290,6 +290,7 @@ function sortDate(task, datePros, currentPro, list, li, allPros) {
             task.index = index
         })
     }
+    
     localStorage.setItem('allPros', JSON.stringify(allPros))
 }
 

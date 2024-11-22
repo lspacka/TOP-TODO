@@ -66,10 +66,11 @@ const all_pros = [default_pro, today, this_week, important]
 let pro_count = 0
 
 ///////////////////// LOCAL STORAGE ////////////////////////
-
+let userPros = null
 let stored_pros = null
 window.onload = () => {
   stored_pros = localStorage.getItem('allPros')
+  userPros = localStorage.getItem('userPros')
   if (stored_pros) {
     stored_pros = JSON.parse(localStorage.getItem('allPros'))
 
@@ -97,16 +98,20 @@ window.onload = () => {
     showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
   } else {
     localStorage.setItem('allPros', JSON.stringify(all_pros))
+    localStorage.setItem('userPros', JSON.stringify(user_pros))
   }
 
-  console.log(`user pro count on load: ${pro_count}`)
-  console.log('user pros on load: ', user_pros)
+  // console.log(`user pro count on load: ${pro_count}`)
+  // console.log('user pros on load: ', user_pros)
+  // console.log('all_pros on load: ', all_pros)
+  console.log('all_pros on load from LS: ', JSON.parse(localStorage.getItem('allPros')))
 }
 
 //////////////////////////////////////////////////////////
 
 nuke_ls.addEventListener('click', () => {
   localStorage.clear()
+  location.reload()
 })
 
 showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
@@ -152,15 +157,15 @@ function handleButtonClick(e) {
 }
 
 function deleteProject(list, userPros, pro) {
-  console.log('user pros after delete: ', user_pros)
   const li = list.children[pro.index]
 
   list.removeChild(li)
   userPros.splice(pro.index, 1)
-  userPros.forEach((pro, index) => {
-    pro.index = index
-    pro_count--
-  })
+
+  // userPros.forEach((pro, index) => {
+  //   pro.index = index
+  //   pro_count--
+  // })
 
   if (userPros[pro.index]) {
     current_pro = userPros[pro.index]
@@ -170,9 +175,17 @@ function deleteProject(list, userPros, pro) {
     current_pro = default_pro
   }
 
+  userPros.forEach((pro, index) => {
+    pro.index = index
+  })
   pro_count = user_pros.length
 
-  localStorage.setItem('allPros', JSON.stringify(all_pros))
+  // all_pros[4] = user_pros
+  // console.log('user pros after delete: ', user_pros)
+  localStorage.setItem('userPros', JSON.stringify(userPros))
+  // localStorage.setItem('allPros', JSON.stringify(all_pros))
+  console.log('user pros after delete: ', user_pros)
+  console.log('all_pros from LS after delete pro: ', JSON.parse(localStorage.getItem('allPros')))
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
 }
 
@@ -211,7 +224,8 @@ function addNewProject() {
   overlay.style.display = 'none'
   current_pro = project  
 
-  localStorage.setItem('allPros', JSON.stringify(all_pros))  
+  localStorage.setItem('allPros', JSON.stringify(all_pros))
+  // localStorage.setItem('userPros', JSON.stringify(user_pros))  
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
 
   const last_li = document.querySelector('.project-li:last-child')
@@ -223,12 +237,13 @@ function addNewProject() {
   if (pro_name) addButtonClickListener(pro_name)
   if (del_pro) deleteProListener(del_pro, parent_list, user_pros, project)
 
-  console.log('user pros: ', user_pros)
+  // console.log('user pros: ', user_pros)
+  console.log('all_pros from LS after adding pro: ', JSON.parse(localStorage.getItem('allPros')))
 }
 
 add_project.addEventListener('click', addNewProject) 
 
-//  Event listeners for the default projects
+// event listeners for the default projects
 def_pro_btns.forEach(btn => {
   btn.addEventListener('click', (e) => {
     let btn_text = e.target.textContent
@@ -291,9 +306,10 @@ clear_projects.addEventListener('click', () => {
   user_pro_list.innerHTML = ''
   current_pro = default_pro
 
-  localStorage.setItem('allPros', JSON.stringify(all_pros))
+  // localStorage.setItem('allPros', JSON.stringify(all_pros))
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
   pro_count = 0
+  localStorage.setItem('userPros', JSON.stringify(user_pros))
   console.log('user pros after clear all: ', user_pros)
 })
 
