@@ -1,4 +1,4 @@
-// I might refactor this someday...
+// I might refactor this someday...in a far distant future...
 
 import './style.css'
 import { ModalHandler, updateProject, showProject } from './DOMmod.js'
@@ -60,6 +60,7 @@ const this_week = new Project('This Week')
 let important = new Project('Important')
 
 const date_pros = [today, this_week]
+// let user_pros = null
 let user_pros = []
 let current_pro = default_pro
 const all_pros = [default_pro, today, this_week, important]
@@ -68,23 +69,20 @@ let pro_count = 0
 ///////////////////// LOCAL STORAGE ////////////////////////
 let userPros = null
 let stored_pros = null
+
 window.onload = () => {
   stored_pros = localStorage.getItem('allPros')
-  userPros = localStorage.getItem('userPros')
+  // userPros = localStorage.getItem('userPros')
   if (stored_pros) {
     stored_pros = JSON.parse(localStorage.getItem('allPros'))
-
-    // stored_pros.forEach(pro => {
-    //   pro.tasks.forEach(task => {
-    //     task.stored = true
-    //   })
-    // })
-
+    userPros = JSON.parse(localStorage.getItem('userPros'))
+    
     for (let i = 0; i < stored_pros.length; i++) {
       if (i < 4) {
         all_pros[i] = stored_pros[i] 
       } else {
-        user_pros[i-4] = stored_pros[i]  // ?
+        // user_pros[i-4] = stored_pros[i]  // ?
+        user_pros = userPros    //  THIS IS THE FIX!!!!!!!!!!!!!!!!!!!
         all_pros[i] = stored_pros[i]
       } 
     }
@@ -104,7 +102,10 @@ window.onload = () => {
   // console.log(`user pro count on load: ${pro_count}`)
   // console.log('user pros on load: ', user_pros)
   // console.log('all_pros on load: ', all_pros)
+  // console.log('TYPE OF userPros: ', typeof(user_pros))
+  // console.log('TYPE OF stored_pros: ', typeof(stored_pros))
   console.log('all_pros on load from LS: ', JSON.parse(localStorage.getItem('allPros')))
+  console.log('user_pros on load from LS: ', JSON.parse(localStorage.getItem('userPros')))
 }
 
 //////////////////////////////////////////////////////////
@@ -186,6 +187,7 @@ function deleteProject(list, userPros, pro) {
   // localStorage.setItem('allPros', JSON.stringify(all_pros))
   console.log('user pros after delete: ', user_pros)
   console.log('all_pros from LS after delete pro: ', JSON.parse(localStorage.getItem('allPros')))
+  console.log('user_pros from LS after delete pro: ', JSON.parse(localStorage.getItem('userPros')))
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
 }
 
@@ -225,7 +227,7 @@ function addNewProject() {
   current_pro = project  
 
   localStorage.setItem('allPros', JSON.stringify(all_pros))
-  // localStorage.setItem('userPros', JSON.stringify(user_pros))  
+  localStorage.setItem('userPros', JSON.stringify(user_pros))  
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
 
   const last_li = document.querySelector('.project-li:last-child')
@@ -239,6 +241,7 @@ function addNewProject() {
 
   // console.log('user pros: ', user_pros)
   console.log('all_pros from LS after adding pro: ', JSON.parse(localStorage.getItem('allPros')))
+  console.log('user_pros from LS after adding pro: ', JSON.parse(localStorage.getItem('userPros')))
 }
 
 add_project.addEventListener('click', addNewProject) 
@@ -305,12 +308,15 @@ clear_projects.addEventListener('click', () => {
   user_pros = []
   user_pro_list.innerHTML = ''
   current_pro = default_pro
-
-  // localStorage.setItem('allPros', JSON.stringify(all_pros))
-  showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
   pro_count = 0
+
   localStorage.setItem('userPros', JSON.stringify(user_pros))
+  // localStorage.setItem('allPros', JSON.stringify(all_pros))
+
+  showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
+
   console.log('user pros after clear all: ', user_pros)
+  console.log('all pros after clear all: ', all_pros)
 })
 
 clear_tasks.addEventListener('click', () => {
