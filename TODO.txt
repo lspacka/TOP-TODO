@@ -4,9 +4,15 @@
 + fix clear all pros
 - fix add to important bug
 - fix date lists bug
-- update local storage when closing, also set a currentPro item to show the page on loading as it was when closed
++ set a currentPro item to show the page on loading as it was when closed
 - add wojak pic
 - update important icon on all the lists the task is in, not just 'important'
 - add key actions to modals
-- the new task modal auto filling. fix it by emptying it only if its a new project
 + fix tasks view clearing after clearing all user pros
+- check date pros if they fall on current date. maybe move them into a 'past dates' project if they dont
+
+
+deleteProject
+addNewProject
+def_pro_btns.forEach
+clear_projects.addEventListener

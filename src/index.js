@@ -94,7 +94,8 @@ window.onload = () => {
     }
     user_pros = userPros
 
-    current_pro = all_pros[0]
+    // current_pro = all_pros[0]
+    current_pro = JSON.parse(localStorage.getItem('currentPro'))
     date_pros[0] = all_pros[1]
     date_pros[1] = all_pros[2]
     important = all_pros[3]
@@ -104,6 +105,7 @@ window.onload = () => {
   } else {
     localStorage.setItem('allPros', JSON.stringify(all_pros))
     localStorage.setItem('userPros', JSON.stringify(user_pros))
+    localStorage.setItem('currentPro', JSON.stringify(all_pros[0]))
   }
 
   // console.log(`user pro count on load: ${pro_count}`)
@@ -142,6 +144,8 @@ function showUserPros(list, pros) {
       pro_name.addEventListener('click', (e) => {
         let btn_text = e.target.textContent
         if (btn_text == pro.name) current_pro = pro
+
+        localStorage.setItem('currentPro', JSON.stringify(current_pro))
         showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
         console.log('current pro: ', current_pro)
         console.log(`pro index: ${pro.index}`)
@@ -192,6 +196,7 @@ function deleteProject(list, userPros, pro) {
 
   // all_pros[4] = user_pros
   // console.log('user pros after delete: ', user_pros)
+  localStorage.setItem('currentPro', JSON.stringify(current_pro))
   localStorage.setItem('userPros', JSON.stringify(userPros))
   // localStorage.setItem('allPros', JSON.stringify(all_pros))
   console.log('user pros after delete: ', user_pros)
@@ -235,6 +240,7 @@ function addNewProject() {
   overlay.style.display = 'none'
   current_pro = project  
 
+  localStorage.setItem('currentPro', JSON.stringify(current_pro))
   localStorage.setItem('allPros', JSON.stringify(all_pros))
   localStorage.setItem('userPros', JSON.stringify(user_pros))  
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
@@ -262,6 +268,8 @@ def_pro_btns.forEach(btn => {
     all_pros.forEach(pro => {
       if (btn_text == pro.name) current_pro = pro
     })
+
+    localStorage.setItem('currentPro', JSON.stringify(current_pro))
     console.log("Current project:", current_pro)
     showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
   })
@@ -332,6 +340,7 @@ clear_projects.addEventListener('click', () => {
   localStorage.setItem('allPros', JSON.stringify(all_pros))  // what is this even doing ffs...
 
   current_pro = all_pros[0]
+  localStorage.setItem('currentPro', JSON.stringify(current_pro))
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
   // if (user_pros.includes(current_pro)) {
   //   current_pro = all_pros[0]
