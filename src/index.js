@@ -40,7 +40,7 @@ class Task {
     this.title = title
     this.desc = desc
     this.important = false
-    this.stored = false
+    // this.stored = false
     this.date
     this.index
   }
@@ -77,15 +77,22 @@ window.onload = () => {
     stored_pros = JSON.parse(localStorage.getItem('allPros'))
     userPros = JSON.parse(localStorage.getItem('userPros'))
     
-    for (let i = 0; i < stored_pros.length; i++) {
-      if (i < 4) {
-        all_pros[i] = stored_pros[i] 
-      } else {
-        // user_pros[i-4] = stored_pros[i]  // ?
-        user_pros = userPros    //  THIS IS THE FIX!!!!!!!!!!!!!!!!!!!
-        all_pros[i] = stored_pros[i]
-      } 
+    // for (let i = 0; i < stored_pros.length; i++) {
+    //   if (i < 4) {
+    //     all_pros[i] = stored_pros[i] 
+    //   } 
+    //   // else {
+    //   //   // user_pros[i-4] = stored_pros[i]  // ?
+    //   //   user_pros = userPros    //  THIS IS THE FIX!!!!!!!!!!!!!!!!!!!
+    //   //   all_pros[i] = stored_pros[i]
+    //   // } 
+    // }
+    let i = 0
+    while(i < 4) {
+      all_pros[i] = stored_pros[i]
+      i++
     }
+    user_pros = userPros
 
     current_pro = all_pros[0]
     date_pros[0] = all_pros[1]
@@ -104,8 +111,10 @@ window.onload = () => {
   // console.log('all_pros on load: ', all_pros)
   // console.log('TYPE OF userPros: ', typeof(user_pros))
   // console.log('TYPE OF stored_pros: ', typeof(stored_pros))
-  console.log('all_pros on load from LS: ', JSON.parse(localStorage.getItem('allPros')))
-  console.log('user_pros on load from LS: ', JSON.parse(localStorage.getItem('userPros')))
+
+  // console.log('all_pros on load from LS: ', JSON.parse(localStorage.getItem('allPros')))
+  // console.log('user_pros on load from LS: ', JSON.parse(localStorage.getItem('userPros')))
+  console.log('Tasks on load from LS: ', current_pro)
 }
 
 //////////////////////////////////////////////////////////
@@ -305,18 +314,31 @@ add_task.addEventListener('click', () => {
 })
 
 clear_projects.addEventListener('click', () => {
+  // console.log('current pro: ', current_pro)
+  // console.log('default pro: ', default_pro)
+  // console.clear()
+  if (user_pros.length == 0) return
+  
   user_pros = []
   user_pro_list.innerHTML = ''
-  current_pro = default_pro
+  
+  // current_pro = default_pro
   pro_count = 0
 
   localStorage.setItem('userPros', JSON.stringify(user_pros))
-  // localStorage.setItem('allPros', JSON.stringify(all_pros))
+  // current_pro = default_pro
+  // console.log('current pro: ', current_pro)
+  // console.log('default pro: ', default_pro)
+  localStorage.setItem('allPros', JSON.stringify(all_pros))  // what is this even doing ffs...
 
+  current_pro = all_pros[0]
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
-
-  console.log('user pros after clear all: ', user_pros)
-  console.log('all pros after clear all: ', all_pros)
+  // if (user_pros.includes(current_pro)) {
+  //   current_pro = all_pros[0]
+  //   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
+  // }
+  // console.log('user pros after clear all: ', user_pros)
+  // console.log('all pros after clear all: ', all_pros)
 })
 
 clear_tasks.addEventListener('click', () => {

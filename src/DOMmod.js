@@ -31,6 +31,7 @@ export function updateProject(list, pros) {
 }
 
 export function showProject(heading, list, currentPro, importantPro, datePros, allPros) {
+    console.log('current_pro from showProject: ', currentPro)
     list.innerHTML = ''
 
     let tasks = currentPro.tasks

@@ -9,3 +9,4 @@
 - update important icon on all the lists the task is in, not just 'important'
 - add key actions to modals
 - the new task modal auto filling. fix it by emptying it only if its a new project
++ fix tasks view clearing after clearing all user pros
