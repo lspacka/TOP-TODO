@@ -26,10 +26,10 @@ body {
 header {
   border-bottom: 1px solid lightblue;
   font-size: 2rem;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   display: flex;
   align-items: end;
-  padding: 10px 10px 10px 27px;
+  padding: 10px 20px 10px 27px;
 }
 
 a {
@@ -90,6 +90,7 @@ label {
 
 .clear-ls {
   margin-left: auto;
+  /* margin-right: 20px; */
 }
 
 #delete-project {
@@ -463,4 +464,23 @@ li {
 
 .tasks-list > li {
  z-index: 1;
+}
+
+.wojak {
+  width: 70px;
+}
+
+.right-end {
+  margin-left: auto;
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 20px;
+}
+
+.github-icon {
+  width: 27px;
+}
+
+.github-icon:hover {
+  cursor: pointer;
 }

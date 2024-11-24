@@ -337,7 +337,7 @@ clear_projects.addEventListener('click', () => {
   // current_pro = default_pro
   // console.log('current pro: ', current_pro)
   // console.log('default pro: ', default_pro)
-  localStorage.setItem('allPros', JSON.stringify(all_pros))  // what is this even doing ffs...
+  // localStorage.setItem('allPros', JSON.stringify(all_pros))  // what is this even doing ffs...
 
   current_pro = all_pros[0]
   localStorage.setItem('currentPro', JSON.stringify(current_pro))

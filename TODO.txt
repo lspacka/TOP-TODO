@@ -2,17 +2,12 @@
 + fix local storage not updating after deleting a project. also, just noticed a weird bug 
   where its not deleting the last one(s), but after deleting the first one, then it works normally.
 + fix clear all pros
-- fix add to important bug
+- fix importants bug
 - fix date lists bug
 + set a currentPro item to show the page on loading as it was when closed
-- add wojak pic
++ add wojak pic
 - update important icon on all the lists the task is in, not just 'important'
+- update task editing everywhere the task is 
 - add key actions to modals
 + fix tasks view clearing after clearing all user pros
 - check date pros if they fall on current date. maybe move them into a 'past dates' project if they dont
-
-
-deleteProject
-addNewProject
-def_pro_btns.forEach
-clear_projects.addEventListener
