@@ -89,7 +89,7 @@ window.onload = () => {
     date_pros[1] = all_pros[2]
     important = all_pros[3]
 
-    if (userPros)
+    // if (userPros)
       showUserPros(user_pro_list, user_pros)
 
     showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
