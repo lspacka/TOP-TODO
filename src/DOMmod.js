@@ -145,11 +145,13 @@ export function showProject(heading, list, currentPro, importantPro, datePros, a
                 
                 modal_btns.classList.add('modal-buttons')
                 accept_edit.classList.add('modal-button')
+                accept_edit.classList.add('accept-modal')
                 accept_edit.setAttribute('id', 'edit-task-accept')
                 accept_edit.setAttribute('type', 'submit')
                 accept_edit.textContent = 'Accept'
 
                 cancel_edit.classList.add('modal-button')
+                cancel_edit.classList.add('cancel-modal')
                 cancel_edit.setAttribute('id', 'cancel-edit-task')
                 cancel_edit.textContent = 'Cancel'
 
@@ -335,3 +337,21 @@ export function ModalHandler(
         overlay.style.display = 'none'
     })
 }
+
+document.addEventListener("keydown", (event) => {
+    const modal = document.querySelector("dialog[open]");
+    if (!modal) return; 
+  
+    if (event.key === "Enter") {
+      event.preventDefault(); 
+      const acceptButton = modal.querySelector(".accept-modal") || modal.querySelector(".close-detail"); 
+      if (acceptButton) {
+        acceptButton.click();
+      }
+    } else if (event.key === "Escape") {
+      const cancelButton = modal.querySelector(".cancel-modal");
+      if (cancelButton) {
+        cancelButton.click();
+      }
+    }
+  });

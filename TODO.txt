@@ -8,6 +8,6 @@
 + add wojak pic
 - update important icon on all the lists the task is in, not just 'important'
 - update task editing everywhere the task is 
-- add key actions to modals
++ add key shortcuts to modals
 + fix tasks view clearing after clearing all user pros
 - check date pros if they fall on current date. maybe move them into a 'past dates' project if they dont
