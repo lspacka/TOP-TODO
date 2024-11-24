@@ -77,16 +77,6 @@ window.onload = () => {
     stored_pros = JSON.parse(localStorage.getItem('allPros'))
     userPros = JSON.parse(localStorage.getItem('userPros'))
     
-    // for (let i = 0; i < stored_pros.length; i++) {
-    //   if (i < 4) {
-    //     all_pros[i] = stored_pros[i] 
-    //   } 
-    //   // else {
-    //   //   // user_pros[i-4] = stored_pros[i]  // ?
-    //   //   user_pros = userPros    //  THIS IS THE FIX!!!!!!!!!!!!!!!!!!!
-    //   //   all_pros[i] = stored_pros[i]
-    //   // } 
-    // }
     let i = 0
     while(i < 4) {
       all_pros[i] = stored_pros[i]
@@ -94,13 +84,14 @@ window.onload = () => {
     }
     user_pros = userPros
 
-    // current_pro = all_pros[0]
     current_pro = JSON.parse(localStorage.getItem('currentPro'))
     date_pros[0] = all_pros[1]
     date_pros[1] = all_pros[2]
     important = all_pros[3]
 
-    showUserPros(user_pro_list, user_pros) 
+    if (userPros)
+      showUserPros(user_pro_list, user_pros)
+
     showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
   } else {
     localStorage.setItem('allPros', JSON.stringify(all_pros))
@@ -184,11 +175,6 @@ function deleteProject(list, userPros, pro) {
 
   list.removeChild(li)
   userPros.splice(pro.index, 1)
-
-  // userPros.forEach((pro, index) => {
-  //   pro.index = index
-  //   pro_count--
-  // })
 
   if (userPros[pro.index]) {
     current_pro = userPros[pro.index]
@@ -351,10 +337,6 @@ clear_projects.addEventListener('click', () => {
   current_pro = all_pros[0]
   localStorage.setItem('currentPro', JSON.stringify(current_pro))
   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
-  // if (user_pros.includes(current_pro)) {
-  //   current_pro = all_pros[0]
-  //   showProject(pro_heading, tasks_list, current_pro, important, date_pros, all_pros)
-  // }
   // console.log('user pros after clear all: ', user_pros)
   // console.log('all pros after clear all: ', all_pros)
 })
