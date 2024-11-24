@@ -19,17 +19,14 @@ body {
   /* background-color: red; */
   font-family: 'courier';
   color: lightcyan;
-  /* height: 100vh; */
-  /* padding-top: 1rem; */
 }
 
 header {
   border-bottom: 1px solid lightblue;
   font-size: 2rem;
-  /* margin-top: 1rem; */
   display: flex;
   align-items: end;
-  padding: 10px 20px 10px 27px;
+  padding: 10px 20px 10px 0;
 }
 
 a {
@@ -90,7 +87,7 @@ label {
 
 .clear-ls {
   margin-left: auto;
-  /* margin-right: 20px; */
+  visibility: hidden;
 }
 
 #delete-project {
