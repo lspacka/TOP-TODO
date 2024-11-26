@@ -10,4 +10,5 @@
 - update task editing everywhere the task is 
 + add key shortcuts to modals
 + fix tasks view clearing after clearing all user pros
+- scroll for user projects
 - check date pros if they fall on current date. maybe move them into a 'past dates' project if they dont

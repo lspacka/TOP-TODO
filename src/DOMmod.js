@@ -145,7 +145,7 @@ export function showProject(heading, list, currentPro, importantPro, datePros, a
                 
                 modal_btns.classList.add('modal-buttons')
                 accept_edit.classList.add('modal-button')
-                accept_edit.classList.add('accept-modal')
+                // accept_edit.classList.add('accept-modal')
                 accept_edit.setAttribute('id', 'edit-task-accept')
                 accept_edit.setAttribute('type', 'submit')
                 accept_edit.textContent = 'Accept'
